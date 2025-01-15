@@ -1,0 +1,42 @@
+﻿using System.Text.Json.Serialization;
+using HowLongToBeat.Parser.JsonConverters;
+
+namespace HowLongToBeat.Parser.Models.Responses;
+
+public record Game(
+    [property: JsonPropertyName("game_id")]
+    int Id,
+    [property: JsonPropertyName("game_name")]
+    string Name,
+    [property: JsonPropertyName("game_type")]
+    string GameType,
+    [property: JsonPropertyName("game_alias")]
+    string Alias,
+    [property: JsonPropertyName("game_image")]
+    [property: JsonConverter(typeof(StringToUriConverter))]
+    Uri? ImageUrl,
+    [property: JsonPropertyName("comp_main")]
+    [property: JsonConverter(typeof(IntToTimeSpanConverter))]
+    TimeSpan MainTime,
+    [property: JsonPropertyName("comp_plus")]    
+    [property: JsonConverter(typeof(IntToTimeSpanConverter))]
+    TimeSpan PlusExtrasTime,
+    [property: JsonPropertyName("comp_100")]
+    [property: JsonConverter(typeof(IntToTimeSpanConverter))]
+    TimeSpan PerfectTime,
+    [property: JsonPropertyName("comp_all")]
+    [property: JsonConverter(typeof(IntToTimeSpanConverter))]
+    TimeSpan AllPlayStyleTime,
+    [property: JsonPropertyName("comp_main_count")]
+    int MainCount,
+    [property: JsonPropertyName("comp_plus_count")]
+    int PlusExtrasCount,
+    [property: JsonPropertyName("comp_100_count")]
+    int PerfectCount,
+    [property: JsonPropertyName("comp_all_count")]
+    int AllPlayStyleCount,
+    [property: JsonPropertyName("release_world")]
+    int ReleaseWorld,
+    [property: JsonPropertyName("profile_platform")]
+    [property: JsonConverter(typeof(StringToArrayConverter))]
+    string[] Platforms);

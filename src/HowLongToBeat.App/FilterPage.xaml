@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+               xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+               xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+               xmlns:viewModels="clr-namespace:HowLongToBeat.App.ViewModels"
+               xmlns:behaviors="clr-namespace:HowLongToBeat.App.Behaviors"
+               x:Class="HowLongToBeat.App.FilterPage"
+               x:DataType="{x:Type viewModels:FilterViewModel}" CanBeDismissedByTappingOutsideOfPopup="True">
+    <VerticalStackLayout Spacing="5" BackgroundColor="DimGrey" MinimumWidthRequest="260" Padding="10">
+        <Label Text="Platform" />
+        <Picker ItemsSource="{Binding Platforms}" ItemDisplayBinding="{Binding LocalizedName}"
+                SelectedItem="{Binding SelectedPlatform}" />
+        <Label Text="Perspective" />
+        <Picker ItemsSource="{Binding Perspectives}" FontAutoScalingEnabled="True"
+                ItemDisplayBinding="{Binding LocalizedName}" SelectedItem="{Binding SelectedPerspective}" />
+        <Label Text="Flow" />
+        <Picker ItemsSource="{Binding Flows}" ItemDisplayBinding="{Binding LocalizedName}"
+                SelectedItem="{Binding SelectedFlow}" />
+        <Label Text="Genre" />
+        <Picker ItemsSource="{Binding Genres}" ItemDisplayBinding="{Binding LocalizedName}"
+                SelectedItem="{Binding SelectedGenre}" />
+        <Grid RowSpacing="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="0.9*" />
+                <ColumnDefinition Width="0.9*" />
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="0" Text="Release year" VerticalOptions="Center" />
+            <Entry Grid.Column="1" Keyboard="Numeric" Placeholder="Min" PlaceholderColor="White"
+                   HorizontalTextAlignment="Center" Text="{Binding ReleaseYearMin}">
+                <Entry.Behaviors>
+                    <behaviors:NullableIntBehavior MaxLength="4"/>
+                </Entry.Behaviors>
+            </Entry>
+            <Entry Grid.Column="2" Keyboard="Numeric" Placeholder="Max" PlaceholderColor="White"
+                   HorizontalTextAlignment="Center" Text="{Binding ReleaseYearMax}">
+                <Entry.Behaviors>
+                    <behaviors:NullableIntBehavior MaxLength="4"/>
+                </Entry.Behaviors>
+            </Entry>
+        </Grid>
+        <Label Text="Length Range Category" />
+        <Picker ItemsSource="{Binding CategoryRanges}" ItemDisplayBinding="{Binding LocalizedName}"
+                SelectedItem="{Binding SelectedCategoryRange}" />
+        <Grid RowSpacing="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="0.9*" />
+                <ColumnDefinition Width="0.9*" />
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="0" Text="Hour Range" VerticalOptions="Center" />
+            <Entry Grid.Column="1" Keyboard="Numeric" Placeholder="Min" PlaceholderColor="White"
+                   HorizontalTextAlignment="Center" Text="{Binding HourRangeMin}">
+                <Entry.Behaviors>
+                    <behaviors:NullableIntBehavior MaxLength="3"/>
+                </Entry.Behaviors>
+            </Entry>
+            <Entry Grid.Column="2" Keyboard="Numeric" Placeholder="Max" PlaceholderColor="White"
+                   HorizontalTextAlignment="Center" Text="{Binding HourRangeMax}">
+                <Entry.Behaviors>
+                    <behaviors:NullableIntBehavior MaxLength="3"/>
+                </Entry.Behaviors>
+            </Entry>
+        </Grid>
+        <Label Text="Sort By" />
+        <Picker ItemsSource="{Binding SortCategories}" ItemDisplayBinding="{Binding LocalizedName}"
+                SelectedItem="{Binding SelectedSortCategory}" />
+        <Grid ColumnSpacing="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0" Text="Reset" BackgroundColor="DimGray" TextColor="White"
+                    Command="{Binding ResetCommand}" />
+            <Button Grid.Column="1" Text="Save" BackgroundColor="DimGray" TextColor="White"
+                    Command="{Binding SaveCommand}" />
+        </Grid>
+    </VerticalStackLayout>
+</toolkit:Popup>

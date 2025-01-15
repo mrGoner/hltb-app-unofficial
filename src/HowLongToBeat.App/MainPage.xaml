@@ -1,0 +1,145 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:HowLongToBeat.App.Models"
+             xmlns:viewModels="clr-namespace:HowLongToBeat.App.ViewModels"
+             x:Class="HowLongToBeat.App.MainPage"
+             xmlns:ffimageloading="clr-namespace:FFImageLoading.Maui;assembly=FFImageLoading.Maui"
+             xmlns:valueFormatters="clr-namespace:HowLongToBeat.App.ValueFormatters"
+             x:DataType="{x:Type viewModels:MainViewModel}">
+
+    <ContentPage.Resources>
+        <valueFormatters:TimeSpanFormatter x:Key="TimeSpanFormatter" />
+    </ContentPage.Resources>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Order="Primary" Command="{Binding ShowFilterCommand}">
+            <ToolbarItem.Style>
+                <Style TargetType="ToolbarItem">
+                    <Setter Property="Text" Value="Filter (not applied)" />
+
+                    <Style.Triggers>
+                        <DataTrigger TargetType="ToolbarItem" Binding="{Binding IsFilterModified}" Value="True">
+                            <Setter Property="Text" Value="Filter (applied)" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </ToolbarItem.Style>
+        </ToolbarItem>
+        <ToolbarItem Text="About" Order="Secondary" Clicked="ShowAboutPage" />
+    </ContentPage.ToolbarItems>
+
+    <Grid Padding="30,0" RowSpacing="25">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Label
+            Grid.Row="0"
+            Text="HowLongToBeat"
+            Style="{StaticResource Headline}" />
+
+        <VerticalStackLayout Grid.Row="1"
+                             Padding="0">
+            <Entry IsTextPredictionEnabled="True" Placeholder="Enter game name"
+                   ClearButtonVisibility="WhileEditing" Text="{Binding SearchGameText}"
+                   ReturnCommand="{Binding SearchGameCommand}" />
+        </VerticalStackLayout>
+
+        <ActivityIndicator Grid.Row="2" HorizontalOptions="Center" VerticalOptions="Center">
+            <ActivityIndicator.Style>
+                <Style TargetType="ActivityIndicator">
+                    <Setter Property="IsVisible" Value="False" />
+                    <Setter Property="IsRunning" Value="False" />
+                    <Style.Triggers>
+                        <DataTrigger TargetType="ActivityIndicator" Binding="{Binding IsLoading}" Value="True">
+                            <Setter Property="IsRunning" Value="True" />
+                            <Setter Property="IsVisible" Value="True" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </ActivityIndicator.Style>
+        </ActivityIndicator>
+
+        <CollectionView Grid.Row="2" Margin="0, 0,0,20" ItemsSource="{Binding Games}" SelectionMode="None"
+                        ItemSizingStrategy="MeasureAllItems" ItemsUpdatingScrollMode="KeepScrollOffset">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout ItemSpacing="5" Orientation="Vertical" />
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="{x:Type models:Game}">
+                    <Grid HeightRequest="150" BackgroundColor="#202427" Padding="3" ColumnSpacing="10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="0.3*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <ffimageloading:CachedImage Grid.Column="0" Source="{Binding ImageUrl}"
+                                                    LoadingPlaceholder="placeholder.png"
+                                                    ErrorPlaceholder="placeholder_error.png" CacheType="All"
+                                                    CacheDuration="10:00:00" Aspect="AspectFit" />
+                        <Grid Grid.Column="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <Label Grid.Row="0" Text="{Binding Name}" FontSize="Medium" MaxLines="3"
+                                   HorizontalTextAlignment="Start" TextColor="White" 
+                                   ToolTipProperties.Text="{Binding ReleaseYear, StringFormat='Year of release: {0}'}"/>
+                            <Grid Grid.Row="1" Margin="0,5, 0, 0" RowSpacing="1">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+
+                                <Label Grid.Column="0" Grid.Row="0" Text="Main story" FontSize="Small"
+                                       VerticalTextAlignment="Center" TextColor="White" />
+                                <Label Grid.Column="0" Grid.Row="1" Text="Main + Extra" FontSize="Small"
+                                       VerticalTextAlignment="Center" TextColor="White" />
+                                <Label Grid.Column="0" Grid.Row="2" Text="Completionist" FontSize="Small"
+                                       VerticalTextAlignment="Center" TextColor="White" />
+
+                                <Label Grid.Column="1" Grid.Row="0" Text="{Binding MainDurationString}"
+                                       FontSize="Small"
+                                       BackgroundColor="#3c7bb5" VerticalTextAlignment="Center"
+                                       HorizontalTextAlignment="Center"
+                                       ToolTipProperties.Text="{Binding MainDuration, Converter={StaticResource TimeSpanFormatter}}"
+                                       TextColor="White" />
+                                <Label Grid.Column="1" Grid.Row="1" Text="{Binding ExtraDurationString}"
+                                       FontSize="Small"
+                                       BackgroundColor="#3c7bb5" VerticalTextAlignment="Center"
+                                       HorizontalTextAlignment="Center"
+                                       ToolTipProperties.Text="{Binding ExtraDuration, Converter={StaticResource TimeSpanFormatter}}"
+                                       TextColor="White" />
+                                <Label Grid.Column="1" Grid.Row="2" Text="{Binding PerfectDurationString}"
+                                       FontSize="Small" BackgroundColor="#3c7bb5" VerticalTextAlignment="Center"
+                                       HorizontalTextAlignment="Center"
+                                       ToolTipProperties.Text="{Binding PerfectDuration, Converter={StaticResource TimeSpanFormatter}}"
+                                       TextColor="White" />
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+            <CollectionView.Style>
+                <Style TargetType="CollectionView">
+                    <Setter Property="IsVisible" Value="True" />
+                    <Style.Triggers>
+                        <DataTrigger TargetType="CollectionView" Binding="{Binding IsLoading}" Value="True">
+                            <Setter Property="IsVisible" Value="False" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </CollectionView.Style>
+        </CollectionView>
+    </Grid>
+
+</ContentPage>
