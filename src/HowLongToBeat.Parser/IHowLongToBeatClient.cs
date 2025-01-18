@@ -9,8 +9,10 @@ namespace HowLongToBeat.Parser;
     "User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36")]
 internal interface IHowLongToBeatClient
 {
-    [Post("/api/lookup/{token}")]
-    public Task<SearchResponse> SearchGames([AliasAs("token")] string userToken, SearchRequest request,
+    [Post("/{path}/{token}")]
+    [QueryUriFormat(UriFormat.Unescaped)]
+    public Task<SearchResponse> SearchGames([AliasAs("path")] string apiPath, [AliasAs("token")] string userToken,
+        SearchRequest request,
         CancellationToken cancellationToken);
 
     [Get("/")]

@@ -15,39 +15,40 @@ public class HltbParser : IDisposable
             Converters = {new EnumToStringConverterFactory()}
         })));
 
-    private string? _token;
+    private SearchContext? _searchContext;
     private readonly SemaphoreSlim _semaphore = new(1, 1);
     private static readonly Regex ScriptSearchRegex = new(@"<script\s+src=[""'][^""'>]*_app[^""'>]*[""'][^>]*><\/script>");
     private static readonly Regex ScriptSrcSearchRegex = new(@"src="".{1,}?""");
-    private static readonly Regex TokenSearchRegex = new(@"\/api\/lookup\/""(?:\.concat\(""[^""]*""\))*");
+    private static readonly Regex TokenSearchRegex = new(@"fetch\(""\/api\/[^""]*""(?:\.concat\(""[^""]*""\)){2}");
     private static readonly Regex TokenExtractRegex = new(@"""\w{1,}?""");
+    private static readonly Regex SearchApiPathExtractRegex = new(@"fetch\(""(\/api\/[^""]+)");
 
-    public async Task<SearchResponse> Search(SearchRequest request, Context? context, CancellationToken cancellationToken)
+    public async Task<SearchResponse> Search(SearchRequest request, SearchContext? context, CancellationToken cancellationToken)
     {
         if (context == null)
             await AcquireUserToken(cancellationToken);
-        else
-            _token = context.Token;
 
-        var response = await _client.SearchGames(_token!, request, cancellationToken);
+        var currentContext = context ?? _searchContext ?? throw new ArgumentException("Search context is null");
+
+        var response = await _client.SearchGames(currentContext.SearchPath, currentContext.Token, request, cancellationToken);
         
         return response;
     }
 
     private async Task AcquireUserToken(CancellationToken cancellationToken)
     {
-        if (_token == null)
+        if (_searchContext == null)
         {
             await _semaphore.WaitAsync(cancellationToken);
 
             try
             {
-                var token = await TryGetUserToken(cancellationToken);
+                var searchContext = await TryGetSearchContext(cancellationToken);
 
-                if (token == null)
+                if (searchContext == null)
                     throw new Exception("Failed to get user token, maybe server change token mechanism");
 
-                _token ??= token;
+                _searchContext ??= searchContext;
             }
             finally
             {
@@ -56,7 +57,7 @@ public class HltbParser : IDisposable
         }
     }
 
-    public async Task<string?> TryGetUserToken(CancellationToken cancellationToken)
+    public async Task<SearchContext?> TryGetSearchContext(CancellationToken cancellationToken)
     {
         var pageContent = await _client.GetMain(cancellationToken);
 
@@ -76,12 +77,21 @@ public class HltbParser : IDisposable
             if (!tokenMatch.Success)
                 continue;
 
+            var apiPathMatch = SearchApiPathExtractRegex.Match(tokenMatch.Value);
+
+            if (!apiPathMatch.Success)
+                continue;
+
+            var apiPath = apiPathMatch.Groups[1].Value.Trim('/');
+
             var tokenPartsMatches = TokenExtractRegex.Matches(tokenMatch.Value);
 
             if (tokenPartsMatches.Count == 0)
                 continue;
 
-            return string.Join("", tokenPartsMatches.Select(match => match.Value.Trim('"')));
+            var token = string.Join("", tokenPartsMatches.Select(match => match.Value.Trim('"')));
+
+            return new SearchContext(token, apiPath);
         }
 
         return null;

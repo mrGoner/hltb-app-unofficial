@@ -1,6 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Text.Json;
 using System.Windows.Input;
 using CommunityToolkit.Maui.Alerts;
 using CommunityToolkit.Maui.Core;
@@ -18,7 +19,7 @@ public sealed class MainViewModel : INotifyPropertyChanged, IDisposable
     private static readonly DisplayAlertParams FilterChangedAlertParams = new("",
         "Filter was changed, do you want to search again you current query?", "Yes", "No");
    
-    private const string UserTokenName = "UserToken";
+    private const string SearchContextName = "SearchContext";
     private readonly HltbParser _hltbParser = new();
     private string _searchGameText = string.Empty;
     private GamesFilter _gameFilter = GamesFilter.Default;
@@ -91,20 +92,24 @@ public sealed class MainViewModel : INotifyPropertyChanged, IDisposable
             var searchTerms = _searchGameText.Split(" ", StringSplitOptions.RemoveEmptyEntries);
             var searchRequest = new SearchRequest(SearchType.Games, searchTerms, 1, 20, searchOptions, true);
             
-            var storedUserToken = Preferences.Get(UserTokenName, null);
+            var storedSearchContextRaw = Preferences.Get(SearchContextName, null);
+            
+            SearchContext searchContext;
 
-            if (storedUserToken == null)
+            if (storedSearchContextRaw == null)
             {
-                storedUserToken = await _hltbParser.TryGetUserToken(cancellationTokenSource.Token);
+                searchContext = (await _hltbParser.TryGetSearchContext(cancellationTokenSource.Token)) ??
+                                throw new Exception("Failed to get search context");
 
-                if (storedUserToken == null)
-                    throw new Exception("Failed to get user token");
-
-                Preferences.Set(UserTokenName, storedUserToken);
+                Preferences.Set(SearchContextName, JsonSerializer.Serialize(searchContext));
+            }
+            else
+            {
+                searchContext = JsonSerializer.Deserialize<SearchContext>(storedSearchContextRaw) ??
+                                throw new Exception("Failed to deserialize search context");
             }
 
-            var response = await _hltbParser.Search(searchRequest, new Context(storedUserToken),
-                cancellationTokenSource.Token);
+            var response = await _hltbParser.Search(searchRequest, searchContext, cancellationTokenSource.Token);
 
             Games = new ObservableCollection<Game>(response.Games.Select(game =>
                 new Game(game.Name, game.ImageUrl, game.MainTime, game.PlusExtrasTime, game.PerfectTime, game.ReleaseWorld)));
@@ -117,7 +122,7 @@ public sealed class MainViewModel : INotifyPropertyChanged, IDisposable
         catch (Exception)
         {
             if (!cancellationTokenSource.IsCancellationRequested)
-                Preferences.Remove(UserTokenName);
+                Preferences.Remove(SearchContextName);
             
             await Toast.Make("Load failed, try again", ToastDuration.Long).Show();
         }
