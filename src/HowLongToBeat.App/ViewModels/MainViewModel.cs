@@ -19,7 +19,7 @@ public sealed class MainViewModel : INotifyPropertyChanged, IDisposable
     private static readonly DisplayAlertParams FilterChangedAlertParams = new("",
         "Filter was changed, do you want to search again you current query?", "Yes", "No");
    
-    private const string SearchContextName = "SearchContext";
+    private const string SearchContextName = "SearchContextWrapper";
     private readonly HltbParser _hltbParser = new();
     private string _searchGameText = string.Empty;
     private GamesFilter _gameFilter = GamesFilter.Default;
@@ -91,23 +91,8 @@ public sealed class MainViewModel : INotifyPropertyChanged, IDisposable
             var searchOptions = SearchOptions.Default with {Games = _gameFilter};
             var searchTerms = _searchGameText.Split(" ", StringSplitOptions.RemoveEmptyEntries);
             var searchRequest = new SearchRequest(SearchType.Games, searchTerms, 1, 20, searchOptions, true);
-            
-            var storedSearchContextRaw = Preferences.Get(SearchContextName, null);
-            
-            SearchContext searchContext;
 
-            if (storedSearchContextRaw == null)
-            {
-                searchContext = (await _hltbParser.TryGetSearchContext(cancellationTokenSource.Token)) ??
-                                throw new Exception("Failed to get search context");
-
-                Preferences.Set(SearchContextName, JsonSerializer.Serialize(searchContext));
-            }
-            else
-            {
-                searchContext = JsonSerializer.Deserialize<SearchContext>(storedSearchContextRaw) ??
-                                throw new Exception("Failed to deserialize search context");
-            }
+            var searchContext = await GetSearchContext(cancellationTokenSource.Token);
 
             var response = await _hltbParser.Search(searchRequest, searchContext, cancellationTokenSource.Token);
 
@@ -121,14 +106,55 @@ public sealed class MainViewModel : INotifyPropertyChanged, IDisposable
         }
         catch (Exception)
         {
-            if (!cancellationTokenSource.IsCancellationRequested)
-                Preferences.Remove(SearchContextName);
-            
             await Toast.Make("Load failed, try again", ToastDuration.Long).Show();
         }
         finally
         {
             IsLoading = false;
+        }
+    }
+
+    private async ValueTask<SearchContext> GetSearchContext(CancellationToken cancellationToken)
+    {
+        try
+        {
+            var storedSearchContextWrapperRaw = Preferences.Get(SearchContextName, null);
+
+            SearchContextWrapper searchContextWrapper;
+
+            if (storedSearchContextWrapperRaw == null)
+            {
+                var searchContext = await _hltbParser.TryGetSearchContext(cancellationToken) ??
+                                    throw new Exception("Failed to get search context");
+
+                searchContextWrapper = new SearchContextWrapper(searchContext, DateTimeOffset.UtcNow);
+
+                Preferences.Set(SearchContextName, JsonSerializer.Serialize(searchContextWrapper));
+            }
+            else
+            {
+                searchContextWrapper = JsonSerializer.Deserialize<SearchContextWrapper>(storedSearchContextWrapperRaw) ??
+                                       throw new Exception("Failed to deserialize search context");
+
+                if (DateTimeOffset.UtcNow - searchContextWrapper.StoreTime > TimeSpan.FromDays(1))
+                {
+                    var searchContext = await _hltbParser.TryGetSearchContext(cancellationToken) ??
+                                        throw new Exception("Failed to get search context");
+
+                    searchContextWrapper = new SearchContextWrapper(searchContext, DateTimeOffset.UtcNow);
+
+                    Preferences.Set(SearchContextName, JsonSerializer.Serialize(searchContextWrapper));
+                }
+            }
+
+            return searchContextWrapper.SearchContext;
+        }
+        catch
+        {
+            if (!cancellationToken.IsCancellationRequested)
+                Preferences.Remove(SearchContextName);
+            
+            throw;
         }
     }
 
@@ -168,6 +194,8 @@ public sealed class MainViewModel : INotifyPropertyChanged, IDisposable
         OnPropertyChanged(propertyName);
         return true;
     }
+
+    private record SearchContextWrapper(SearchContext SearchContext, DateTimeOffset StoreTime);
 
     public void Dispose()
     {

@@ -18,7 +18,7 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <maui:CachedImage Grid.Column="0" Grid.Row="0" Source="info.png" VerticalOptions="Center"/>
-        <Label Grid.Column="1" Grid.Row="0" FontSize="Body" Text="This is unofficial opensource app for howlongtobeat.com writing for fun" LineBreakMode="WordWrap" VerticalOptions="Center"/>
+        <Label Grid.Column="1" Grid.Row="0" FontSize="Body" Text="This is unofficial open-source app for howlongtobeat.com writing for fun" LineBreakMode="WordWrap" VerticalOptions="Center"/>
         <maui:CachedImage Grid.Column="0" Grid.Row="1" Source="github.png" VerticalOptions="Center"/>
         <Label Grid.Column="1" Grid.Row="1" FontSize="Body" Text="Feel free to contribute and describe any bugs you encounter" VerticalOptions="Center"/>
         <Label Grid.Column="1" Grid.Row="2" FontSize="Micro" Text="{Binding AppVersion, StringFormat='ver: {0}'}" VerticalOptions="End" HorizontalOptions="End"/>

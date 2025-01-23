@@ -23,10 +23,10 @@
         <ApplicationTitle>HLTB</ApplicationTitle>
 
         <!-- App Identifier -->
-        <ApplicationId>com.companyname.hltb.unofficial</ApplicationId>
+        <ApplicationId>com.mrgoner.hltb.unofficial</ApplicationId>
 
         <!-- Versions -->
-        <ApplicationDisplayVersion>0.3.1</ApplicationDisplayVersion>
+        <ApplicationDisplayVersion>0.3.2</ApplicationDisplayVersion>
         <ApplicationVersion>1</ApplicationVersion>
 
         <!-- To develop, package, and publish an app to the Microsoft Store, see: https://aka.ms/MauiTemplateUnpackaged -->
