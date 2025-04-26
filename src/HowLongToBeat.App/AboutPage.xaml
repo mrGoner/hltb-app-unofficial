@@ -6,22 +6,40 @@
                xmlns:viewModels="clr-namespace:HowLongToBeat.App.ViewModels"
                xmlns:maui="clr-namespace:FFImageLoading.Maui;assembly=FFImageLoading.Maui"
                x:Class="HowLongToBeat.App.AboutPage"
-               x:DataType="{x:Type viewModels:AboutViewModel}">
-    <Grid BackgroundColor="#3c7bb5" WidthRequest="350" ColumnSpacing="10" RowSpacing="5" Padding="10" Margin="10">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="32"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
-        <maui:CachedImage Grid.Column="0" Grid.Row="0" Source="info.png" VerticalOptions="Center"/>
-        <Label Grid.Column="1" Grid.Row="0" FontSize="Body" Text="This is unofficial open-source app for howlongtobeat.com writing for fun" LineBreakMode="WordWrap" VerticalOptions="Center"/>
-        <maui:CachedImage Grid.Column="0" Grid.Row="1" Source="github.png" VerticalOptions="Center"/>
-        <Label Grid.Column="1" Grid.Row="1" FontSize="Body" Text="Feel free to contribute and describe any bugs you encounter" VerticalOptions="Center"/>
-        <Label Grid.Column="1" Grid.Row="2" FontSize="Micro" Text="{Binding AppVersion, StringFormat='ver: {0}'}" VerticalOptions="End" HorizontalOptions="End"/>
-        <Button Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2" HorizontalOptions="Center" Text="View github repo" Command="{Binding OpenGitHubCommand}" TextColor="White"/>
+               x:DataType="{x:Type viewModels:AboutViewModel}"
+               Color="Transparent">
+    <Grid Margin="10">
+        <Border
+            MinimumWidthRequest="300" Padding="10"
+            StrokeShape="RoundRectangle 16"
+            BackgroundColor="{AppThemeBinding Light={StaticResource PopupLight}, Dark={StaticResource PopupDark}}">
+            <Grid ColumnSpacing="10" RowSpacing="5" Margin="10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="32" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="10" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <maui:CachedImage Grid.Column="0" Grid.Row="0"
+                                  Source="{AppThemeBinding Light=info_dark.png, Dark=info.png}"
+                                  VerticalOptions="Center" />
+                <Label Grid.Column="1" Grid.Row="0" FontSize="Body"
+                       Text="This is unofficial open-source app for howlongtobeat.com writing for fun"
+                       LineBreakMode="WordWrap" VerticalOptions="Center" />
+                <maui:CachedImage Grid.Column="0" Grid.Row="1" Source="github.png" VerticalOptions="Center" />
+                <Label Grid.Column="1" Grid.Row="1" FontSize="Body"
+                       Text="Feel free to contribute and describe any bugs you encounter" VerticalOptions="Center" />
+                <Label Grid.Column="1" Grid.Row="3" FontSize="Micro"
+                       Text="{Binding AppVersion, StringFormat='ver: {0}'}"
+                       VerticalOptions="End" HorizontalOptions="End" />
+                <Button Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="3" HorizontalOptions="Center"
+                        Text="View github repo"
+                        Command="{Binding OpenGitHubCommand}" TextColor="White" />
+            </Grid>
+        </Border>
     </Grid>
 </toolkit:Popup>

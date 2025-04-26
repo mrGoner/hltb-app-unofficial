@@ -26,7 +26,7 @@
         <ApplicationId>com.mrgoner.hltb.unofficial</ApplicationId>
 
         <!-- Versions -->
-        <ApplicationDisplayVersion>0.3.2</ApplicationDisplayVersion>
+        <ApplicationDisplayVersion>0.4.0</ApplicationDisplayVersion>
         <ApplicationVersion>1</ApplicationVersion>
 
         <!-- To develop, package, and publish an app to the Microsoft Store, see: https://aka.ms/MauiTemplateUnpackaged -->
@@ -52,10 +52,10 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="CommunityToolkit.Maui" Version="10.0.0" />
+        <PackageReference Include="CommunityToolkit.Maui" Version="11.2.0" />
         <PackageReference Include="FFImageLoading.Maui" Version="1.2.7" />
-        <PackageReference Include="Microsoft.Maui.Controls" Version="9.0.22" />
-        <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="9.0.0"/>
+        <PackageReference Include="Microsoft.Maui.Controls" Version="9.0.60" />
+        <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="9.0.4" />
     </ItemGroup>
 
     <ItemGroup>

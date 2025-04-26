@@ -49,7 +49,7 @@
                    ReturnCommand="{Binding SearchGameCommand}" />
         </VerticalStackLayout>
 
-        <ActivityIndicator Grid.Row="2" HorizontalOptions="Center" VerticalOptions="Center">
+        <ActivityIndicator Grid.Row="0" Grid.RowSpan="3" HorizontalOptions="Center" VerticalOptions="Center">
             <ActivityIndicator.Style>
                 <Style TargetType="ActivityIndicator">
                     <Setter Property="IsVisible" Value="False" />
@@ -71,7 +71,10 @@
             </CollectionView.ItemsLayout>
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="{x:Type models:Game}">
-                    <Grid HeightRequest="150" BackgroundColor="#202427" Padding="3" ColumnSpacing="10">
+                    <Border HeightRequest="150" Padding="3"
+                            StrokeShape="RoundRectangle 4"
+                            BackgroundColor="{AppThemeBinding Light={StaticResource Gray400}, Dark={StaticResource BackgroundDark}}">
+                    <Grid ColumnSpacing="10">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="0.3*" />
                             <ColumnDefinition Width="*" />
@@ -127,6 +130,7 @@
                             </Grid>
                         </Grid>
                     </Grid>
+                        </Border>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
             <CollectionView.Style>
