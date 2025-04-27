@@ -1,4 +1,5 @@
 ﻿using System.Globalization;
+using HowLongToBeat.App.Resources;
 
 namespace HowLongToBeat.App.ValueFormatters;
 
@@ -7,7 +8,7 @@ public sealed class TimeSpanFormatter : IValueConverter
     public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
         if (value is TimeSpan timeSpan)
-            return $"{(timeSpan.Days == 0 ? timeSpan.Hours : timeSpan.Days * 24 + timeSpan.Hours)} hours {timeSpan.Minutes} minutes {timeSpan.Seconds} seconds";
+            return $"{(timeSpan.Days == 0 ? timeSpan.Hours : timeSpan.Days * 24 + timeSpan.Hours)} {AppResources.Hours.ToLower()} {timeSpan.Minutes} {AppResources.Minutes.ToLower()} {timeSpan.Seconds} {AppResources.Seconds.ToLower()}";
         
         return Binding.DoNothing;
     }

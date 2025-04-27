@@ -5,18 +5,17 @@
                xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
                xmlns:viewModels="clr-namespace:HowLongToBeat.App.ViewModels"
                xmlns:maui="clr-namespace:FFImageLoading.Maui;assembly=FFImageLoading.Maui"
+               xmlns:resources="clr-namespace:HowLongToBeat.App.Resources"
                x:Class="HowLongToBeat.App.AboutPage"
                x:DataType="{x:Type viewModels:AboutViewModel}"
                Color="Transparent">
-    <Grid Margin="10">
         <Border
-            MinimumWidthRequest="300" Padding="10"
             StrokeShape="RoundRectangle 16"
             BackgroundColor="{AppThemeBinding Light={StaticResource PopupLight}, Dark={StaticResource PopupDark}}">
-            <Grid ColumnSpacing="10" RowSpacing="5" Margin="10">
+            <Grid ColumnSpacing="10" RowSpacing="5" Padding="15, 20, 15, 10">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="32" />
-                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="300" />
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*" />
@@ -28,18 +27,19 @@
                                   Source="{AppThemeBinding Light=info_dark.png, Dark=info.png}"
                                   VerticalOptions="Center" />
                 <Label Grid.Column="1" Grid.Row="0" FontSize="Body"
-                       Text="This is unofficial open-source app for howlongtobeat.com writing for fun"
+                       Text="{x:Static resources:AppResources.AppDescription}"
                        LineBreakMode="WordWrap" VerticalOptions="Center" />
                 <maui:CachedImage Grid.Column="0" Grid.Row="1" Source="github.png" VerticalOptions="Center" />
                 <Label Grid.Column="1" Grid.Row="1" FontSize="Body"
-                       Text="Feel free to contribute and describe any bugs you encounter" VerticalOptions="Center" />
+                       Text="{x:Static resources:AppResources.ContributeWelcomeMessage}" 
+                       LineBreakMode="WordWrap"
+                       VerticalOptions="Center" />
                 <Label Grid.Column="1" Grid.Row="3" FontSize="Micro"
                        Text="{Binding AppVersion, StringFormat='ver: {0}'}"
                        VerticalOptions="End" HorizontalOptions="End" />
                 <Button Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="3" HorizontalOptions="Center"
-                        Text="View github repo"
+                        Text="{x:Static resources:AppResources.ViewGithubRepository}"
                         Command="{Binding OpenGitHubCommand}" TextColor="White" />
             </Grid>
         </Border>
-    </Grid>
 </toolkit:Popup>

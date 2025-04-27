@@ -1,0 +1,317 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral,
+            PublicKeyToken=b77a5c561934e089
+        </value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral,
+            PublicKeyToken=b77a5c561934e089
+        </value>
+    </resheader>
+    <data name="NotAppliedFilter" xml:space="preserve">
+        <value>Фильтр (не применен)</value>
+    </data>
+    <data name="AppliedFilter" xml:space="preserve">
+        <value>Фильтр (применен)</value>
+    </data>
+    <data name="EnterGameName" xml:space="preserve">
+        <value>Введите название игры</value>
+    </data>
+    <data name="YearOfRelease" xml:space="preserve">
+        <value>Год релиза: {0}</value>
+    </data>
+    <data name="MainStory" xml:space="preserve">
+        <value>Основной сюжет</value>
+    </data>
+  <data name="MainPlusExtra" xml:space="preserve">
+    <value>Сюжет + допы</value>
+  </data>
+    <data name="Completionist" xml:space="preserve">
+        <value>Перфекционист</value>
+    </data>
+    <data name="Hours" xml:space="preserve">
+        <value>ч</value>
+    </data>
+    <data name="Minutes" xml:space="preserve">
+        <value>мин</value>
+    </data>
+    <data name="Seconds" xml:space="preserve">
+        <value>сек</value>
+    </data>
+    <data name="About" xml:space="preserve">
+        <value>О приложении</value>
+    </data>
+    <data name="GenreType.All" xml:space="preserve">
+    <value>Все</value>
+  </data>
+    <data name="GenreType.Action" xml:space="preserve">
+    <value>Экшен</value>
+  </data>
+    <data name="GenreType.Adventure" xml:space="preserve">
+    <value>Приключения</value>
+  </data>
+    <data name="GenreType.Arcade" xml:space="preserve">
+    <value>Аркада</value>
+  </data>
+    <data name="GenreType.BattleArena" xml:space="preserve">
+    <value>Battle Arena</value>
+  </data>
+    <data name="GenreType.BeatEmUp" xml:space="preserve">
+    <value>Beat 'em Up</value>
+  </data>
+    <data name="GenreType.BoardGame" xml:space="preserve">
+    <value>Настольная игра</value>
+  </data>
+    <data name="GenreType.Breakout" xml:space="preserve">
+    <value>Breakout</value>
+  </data>
+    <data name="GenreType.CardGame" xml:space="preserve">
+    <value>Карточная игра</value>
+  </data>
+    <data name="GenreType.CityBuilding" xml:space="preserve">
+    <value>Градостроительный симулятор</value>
+  </data>
+    <data name="GenreType.Compilation" xml:space="preserve">
+    <value>Сборник</value>
+  </data>
+    <data name="GenreType.Educational" xml:space="preserve">
+    <value>Обучающая</value>
+  </data>
+    <data name="GenreType.Fighting" xml:space="preserve">
+    <value>Файтинг</value>
+  </data>
+    <data name="GenreType.Fitness" xml:space="preserve">
+    <value>Фитнес</value>
+  </data>
+    <data name="GenreType.Flight" xml:space="preserve">
+    <value>Авиасимулятор</value>
+  </data>
+    <data name="GenreType.FullMotionVideo" xml:space="preserve">
+    <value>FMV-игра</value>
+  </data>
+    <data name="GenreType.HackAndSlash" xml:space="preserve">
+    <value>Hack and Slash</value>
+  </data>
+    <data name="GenreType.HiddenObject" xml:space="preserve">
+    <value>Поиск предметов</value>
+  </data>
+    <data name="GenreType.Horror" xml:space="preserve">
+    <value>Хоррор</value>
+  </data>
+    <data name="GenreType.InteractiveArt" xml:space="preserve">
+    <value>Интерактивное искусство</value>
+  </data>
+    <data name="GenreType.Management" xml:space="preserve">
+    <value>Менеджмент</value>
+  </data>
+    <data name="GenreType.MusicRhythm" xml:space="preserve">
+    <value>Ритм-игра</value>
+  </data>
+    <data name="GenreType.OpenWorld" xml:space="preserve">
+    <value>Открытый мир</value>
+  </data>
+    <data name="GenreType.Party" xml:space="preserve">
+    <value>Партийная игра</value>
+  </data>
+    <data name="GenreType.Pinball" xml:space="preserve">
+    <value>Пинбол</value>
+  </data>
+    <data name="GenreType.Platform" xml:space="preserve">
+    <value>Платформер</value>
+  </data>
+    <data name="GenreType.Puzzle" xml:space="preserve">
+    <value>Головоломка</value>
+  </data>
+    <data name="GenreType.RacingDriving" xml:space="preserve">
+    <value>Гонки</value>
+  </data>
+    <data name="GenreType.Roguelike" xml:space="preserve">
+    <value>Roguelike</value>
+  </data>
+    <data name="GenreType.RolePlaying" xml:space="preserve">
+    <value>RPG</value>
+  </data>
+    <data name="GenreType.Sandbox" xml:space="preserve">
+    <value>Песочница</value>
+  </data>
+    <data name="GenreType.Shooter" xml:space="preserve">
+    <value>Шутер</value>
+  </data>
+    <data name="GenreType.Simulation" xml:space="preserve">
+    <value>Симулятор</value>
+  </data>
+    <data name="GenreType.Social" xml:space="preserve">
+    <value>Социальная</value>
+  </data>
+    <data name="GenreType.Sports" xml:space="preserve">
+    <value>Спортивная</value>
+  </data>
+    <data name="GenreType.Stealth" xml:space="preserve">
+    <value>Стелс</value>
+  </data>
+  <data name="GenreType.StrategyTactical" xml:space="preserve">
+    <value>Стратегия/Тактика</value>
+  </data>
+    <data name="GenreType.Survival" xml:space="preserve">
+    <value>Выживание</value>
+  </data>
+    <data name="GenreType.TowerDefense" xml:space="preserve">
+    <value>Tower Defense</value>
+  </data>
+    <data name="GenreType.Trivia" xml:space="preserve">
+    <value>Викторина</value>
+  </data>
+    <data name="GenreType.VehicularCombat" xml:space="preserve">
+    <value>Боевые машины</value>
+  </data>
+    <data name="GenreType.VisualNovel" xml:space="preserve">
+    <value>Визуальная новелла</value>
+  </data>
+    <data name="PerspectiveType_All" xml:space="preserve">
+  <value>Все</value>
+</data>
+    <data name="PerspectiveType.FirstPerson" xml:space="preserve">
+  <value>От первого лица</value>
+</data>
+    <data name="PerspectiveType.Isometric" xml:space="preserve">
+  <value>Изометрическая</value>
+</data>
+    <data name="PerspectiveType.Side" xml:space="preserve">
+  <value>Вид сбоку</value>
+</data>
+    <data name="PerspectiveType.Text" xml:space="preserve">
+  <value>Текстовая</value>
+</data>
+    <data name="PerspectiveType.ThirdPerson" xml:space="preserve">
+  <value>От третьего лица</value>
+</data>
+    <data name="PerspectiveType.TopDown" xml:space="preserve">
+  <value>Вид сверху</value>
+</data>
+    <data name="PerspectiveType.VirtualReality" xml:space="preserve">
+  <value>VR</value>
+</data>
+  <data name="FlowType.All" xml:space="preserve">
+  <value>Все</value>
+</data>
+  <data name="FlowType.Incremental" xml:space="preserve">
+  <value>Инкрементальная</value>
+</data>
+  <data name="FlowType.MassivelyMultiplayer" xml:space="preserve">
+  <value>MMO</value>
+</data>
+  <data name="FlowType.Multidirectional" xml:space="preserve">
+  <value>Мультинаправленная</value>
+</data>
+  <data name="FlowType.OnRails" xml:space="preserve">
+  <value>Рельсовый шутер</value>
+</data>
+  <data name="FlowType.PointAndClick" xml:space="preserve">
+  <value>Point-and-Click</value>
+</data>
+  <data name="FlowType.RealTime" xml:space="preserve">
+  <value>Реалтайм</value>
+</data>
+  <data name="FlowType.Scrolling" xml:space="preserve">
+  <value>Скроллер</value>
+</data>
+  <data name="FlowType.TurnBased" xml:space="preserve">
+  <value>Пошаговая</value>
+</data>
+  <data name="AverageTime" xml:space="preserve">
+    <value>Среднее время</value>
+  </data>
+  <data name="SortCategoryType.Popular" xml:space="preserve">
+  <value>Популярность</value>
+</data>
+  <data name="SortCategoryType.Name" xml:space="preserve">
+  <value>Название</value>
+</data>
+  <data name="SortCategoryType.TopRated" xml:space="preserve">
+  <value>Рейтинг</value>
+</data>
+  <data name="SortCategoryType.ReleaseDate" xml:space="preserve">
+  <value>Дата выхода</value>
+</data>
+  <data name="Platform" xml:space="preserve">
+    <value>Платформа</value>
+  </data>
+  <data name="Perspective" xml:space="preserve">
+    <value>Перспектива</value>
+  </data>
+  <data name="Flow" xml:space="preserve">
+    <value>Механика</value>
+  </data>
+  <data name="Genre" xml:space="preserve">
+    <value>Жанр</value>
+  </data>
+  <data name="ReleaseYear" xml:space="preserve">
+    <value>Год релиза</value>
+  </data>
+  <data name="LengthRangeCategory" xml:space="preserve">
+    <value>Категория длительности</value>
+  </data>
+  <data name="HourRange" xml:space="preserve">
+    <value>Длительность (ч)</value>
+  </data>
+  <data name="SortBy" xml:space="preserve">
+    <value>Сортировать по</value>
+  </data>
+  <data name="Reset" xml:space="preserve">
+    <value>Сбросить</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Сохранить</value>
+  </data>
+  <data name="Min" xml:space="preserve">
+    <value>От</value>
+  </data>
+  <data name="Max" xml:space="preserve">
+    <value>До</value>
+  </data>
+  <data name="PlatformType.All" xml:space="preserve">
+    <value>Все</value>
+  </data>
+  <data name="LoadFailedMessage" xml:space="preserve">
+    <value>Не удалось загрузить, попробуй еще раз</value>
+  </data>
+  <data name="NoGamesFoundMessage" xml:space="preserve">
+    <value>Игр не найдено</value>
+  </data>
+  <data name="SearchInProgressMessage" xml:space="preserve">
+    <value>Подожди завершения текущего поиска</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Да</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>Нет</value>
+  </data>
+  <data name="FilterChangedMessage" xml:space="preserve">
+    <value>Фильтр изменился. Выполнить текущий запрос заново?</value>
+  </data>
+  <data name="AppDescription" xml:space="preserve">
+    <value>Это неофициальное open-source приложение для сайта howlongtobeat.com написанное по фану</value>
+  </data>
+  <data name="ContributeWelcomeMessage" xml:space="preserve">
+    <value>Пишите предложения по улучшению и сообщайте о найденных багах</value>
+  </data>
+  <data name="ViewGithubRepository" xml:space="preserve">
+    <value>Github репозиторий</value>
+  </data>
+</root>

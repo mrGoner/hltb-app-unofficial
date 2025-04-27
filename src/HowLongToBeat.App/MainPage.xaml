@@ -7,6 +7,7 @@
              x:Class="HowLongToBeat.App.MainPage"
              xmlns:ffimageloading="clr-namespace:FFImageLoading.Maui;assembly=FFImageLoading.Maui"
              xmlns:valueFormatters="clr-namespace:HowLongToBeat.App.ValueFormatters"
+             xmlns:resources="clr-namespace:HowLongToBeat.App.Resources"
              x:DataType="{x:Type viewModels:MainViewModel}">
 
     <ContentPage.Resources>
@@ -16,17 +17,17 @@
         <ToolbarItem Order="Primary" Command="{Binding ShowFilterCommand}">
             <ToolbarItem.Style>
                 <Style TargetType="ToolbarItem">
-                    <Setter Property="Text" Value="Filter (not applied)" />
+                    <Setter Property="Text" Value="{x:Static resources:AppResources.NotAppliedFilter}" />
 
                     <Style.Triggers>
                         <DataTrigger TargetType="ToolbarItem" Binding="{Binding IsFilterModified}" Value="True">
-                            <Setter Property="Text" Value="Filter (applied)" />
+                            <Setter Property="Text" Value="{x:Static resources:AppResources.AppliedFilter}" />
                         </DataTrigger>
                     </Style.Triggers>
                 </Style>
             </ToolbarItem.Style>
         </ToolbarItem>
-        <ToolbarItem Text="About" Order="Secondary" Clicked="ShowAboutPage" />
+        <ToolbarItem Text="{x:Static resources:AppResources.About}" Order="Secondary" Clicked="ShowAboutPage" />
     </ContentPage.ToolbarItems>
 
     <Grid Padding="30,0" RowSpacing="25">
@@ -44,7 +45,7 @@
 
         <VerticalStackLayout Grid.Row="1"
                              Padding="0">
-            <Entry IsTextPredictionEnabled="True" Placeholder="Enter game name"
+            <Entry IsTextPredictionEnabled="True" Placeholder="{x:Static resources:AppResources.EnterGameName}"
                    ClearButtonVisibility="WhileEditing" Text="{Binding SearchGameText}"
                    ReturnCommand="{Binding SearchGameCommand}" />
         </VerticalStackLayout>
@@ -73,64 +74,68 @@
                 <DataTemplate x:DataType="{x:Type models:Game}">
                     <Border HeightRequest="150" Padding="3"
                             StrokeShape="RoundRectangle 4"
-                            BackgroundColor="{AppThemeBinding Light={StaticResource Gray400}, Dark={StaticResource BackgroundDark}}">
-                    <Grid ColumnSpacing="10">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="0.3*" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
+                            BackgroundColor="{AppThemeBinding Light={StaticResource BackgroundLight}, Dark={StaticResource BackgroundDark}}">
+                        <Grid ColumnSpacing="10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="0.3*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
 
-                        <ffimageloading:CachedImage Grid.Column="0" Source="{Binding ImageUrl}"
-                                                    LoadingPlaceholder="placeholder.png"
-                                                    ErrorPlaceholder="placeholder_error.png" CacheType="All"
-                                                    CacheDuration="10:00:00" Aspect="AspectFit" />
-                        <Grid Grid.Column="1">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="*" />
-                            </Grid.RowDefinitions>
-                            <Label Grid.Row="0" Text="{Binding Name}" FontSize="Medium" MaxLines="3"
-                                   HorizontalTextAlignment="Start" TextColor="White" 
-                                   ToolTipProperties.Text="{Binding ReleaseYear, StringFormat='Year of release: {0}'}"/>
-                            <Grid Grid.Row="1" Margin="0,5, 0, 0" RowSpacing="1">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="*" />
-                                </Grid.ColumnDefinitions>
+                            <ffimageloading:CachedImage Grid.Column="0" Source="{Binding ImageUrl}"
+                                                        LoadingPlaceholder="placeholder.png"
+                                                        ErrorPlaceholder="placeholder_error.png" CacheType="All"
+                                                        CacheDuration="10:00:00" Aspect="AspectFit" />
+                            <Grid Grid.Column="1">
                                 <Grid.RowDefinitions>
-                                    <RowDefinition Height="*" />
-                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="Auto" />
                                     <RowDefinition Height="*" />
                                 </Grid.RowDefinitions>
+                                <Label Grid.Row="0" Text="{Binding Name}" FontSize="Medium" MaxLines="3"
+                                       LineBreakMode="TailTruncation"
+                                       HorizontalTextAlignment="Start"
+                                       ToolTipProperties.Text="{Binding ReleaseYear, StringFormat={x:Static resources:AppResources.YearOfRelease}}" />
+                                <Grid Grid.Row="1" Margin="0,5, 0, 0" RowSpacing="1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="*" />
+                                    </Grid.RowDefinitions>
 
-                                <Label Grid.Column="0" Grid.Row="0" Text="Main story" FontSize="Small"
-                                       VerticalTextAlignment="Center" TextColor="White" />
-                                <Label Grid.Column="0" Grid.Row="1" Text="Main + Extra" FontSize="Small"
-                                       VerticalTextAlignment="Center" TextColor="White" />
-                                <Label Grid.Column="0" Grid.Row="2" Text="Completionist" FontSize="Small"
-                                       VerticalTextAlignment="Center" TextColor="White" />
+                                    <Label Grid.Column="0" Grid.Row="0" MaxLines="1" LineBreakMode="TailTruncation"
+                                           Text="{x:Static resources:AppResources.MainStory}" FontSize="Small"
+                                           VerticalTextAlignment="Center"/>
+                                    <Label Grid.Column="0" Grid.Row="1" MaxLines="1" LineBreakMode="TailTruncation"
+                                           Text="{x:Static resources:AppResources.MainPlusExtra}" FontSize="Small"
+                                           VerticalTextAlignment="Center" />
+                                    <Label Grid.Column="0" Grid.Row="2" LineBreakMode="TailTruncation" MaxLines="1"
+                                           Text="{x:Static resources:AppResources.Completionist}" FontSize="Small"
+                                           VerticalTextAlignment="Center" />
 
-                                <Label Grid.Column="1" Grid.Row="0" Text="{Binding MainDurationString}"
-                                       FontSize="Small"
-                                       BackgroundColor="#3c7bb5" VerticalTextAlignment="Center"
-                                       HorizontalTextAlignment="Center"
-                                       ToolTipProperties.Text="{Binding MainDuration, Converter={StaticResource TimeSpanFormatter}}"
-                                       TextColor="White" />
-                                <Label Grid.Column="1" Grid.Row="1" Text="{Binding ExtraDurationString}"
-                                       FontSize="Small"
-                                       BackgroundColor="#3c7bb5" VerticalTextAlignment="Center"
-                                       HorizontalTextAlignment="Center"
-                                       ToolTipProperties.Text="{Binding ExtraDuration, Converter={StaticResource TimeSpanFormatter}}"
-                                       TextColor="White" />
-                                <Label Grid.Column="1" Grid.Row="2" Text="{Binding PerfectDurationString}"
-                                       FontSize="Small" BackgroundColor="#3c7bb5" VerticalTextAlignment="Center"
-                                       HorizontalTextAlignment="Center"
-                                       ToolTipProperties.Text="{Binding PerfectDuration, Converter={StaticResource TimeSpanFormatter}}"
-                                       TextColor="White" />
+                                    <Label Grid.Column="1" Grid.Row="0" Text="{Binding MainDurationString}"
+                                           FontSize="Small"
+                                           BackgroundColor="#3c7bb5" VerticalTextAlignment="Center"
+                                           HorizontalTextAlignment="Center"
+                                           ToolTipProperties.Text="{Binding MainDuration, Converter={StaticResource TimeSpanFormatter}}"
+                                           TextColor="White" />
+                                    <Label Grid.Column="1" Grid.Row="1" Text="{Binding ExtraDurationString}"
+                                           FontSize="Small"
+                                           BackgroundColor="#3c7bb5" VerticalTextAlignment="Center"
+                                           HorizontalTextAlignment="Center"
+                                           ToolTipProperties.Text="{Binding ExtraDuration, Converter={StaticResource TimeSpanFormatter}}"
+                                           TextColor="White" />
+                                    <Label Grid.Column="1" Grid.Row="2" Text="{Binding PerfectDurationString}"
+                                           FontSize="Small" BackgroundColor="#3c7bb5" VerticalTextAlignment="Center"
+                                           HorizontalTextAlignment="Center"
+                                           ToolTipProperties.Text="{Binding PerfectDuration, Converter={StaticResource TimeSpanFormatter}}"
+                                           TextColor="White" />
+                                </Grid>
                             </Grid>
                         </Grid>
-                    </Grid>
-                        </Border>
+                    </Border>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
             <CollectionView.Style>

@@ -6,6 +6,7 @@ using System.Windows.Input;
 using CommunityToolkit.Maui.Alerts;
 using CommunityToolkit.Maui.Core;
 using HowLongToBeat.App.Models;
+using HowLongToBeat.App.Resources;
 using HowLongToBeat.Parser;
 using HowLongToBeat.Parser.Models.Requests;
 
@@ -17,7 +18,7 @@ public sealed class MainViewModel : INotifyPropertyChanged, IDisposable
     private readonly Func<DisplayAlertParams, Task<bool>> _displayAlertWithCaptionFunc;
 
     private static readonly DisplayAlertParams FilterChangedAlertParams = new("",
-        "Filter was changed, do you want to search again you current query?", "Yes", "No");
+        AppResources.FilterChangedMessage, AppResources.Yes, AppResources.No);
    
     private const string SearchContextName = "SearchContextWrapper";
     private readonly HltbParser _hltbParser = new();
@@ -50,7 +51,7 @@ public sealed class MainViewModel : INotifyPropertyChanged, IDisposable
         new Command(() => _ = SearchGames(), () =>
         {
             if (IsLoading)
-                Toast.Make("Already searching. Wait for complete").Show();
+                Toast.Make(AppResources.SearchInProgressMessage).Show();
 
             return !string.IsNullOrEmpty(SearchGameText) && !IsLoading;
         });
@@ -59,7 +60,7 @@ public sealed class MainViewModel : INotifyPropertyChanged, IDisposable
     public ICommand ShowFilterCommand => new Command(() =>
     {
         if (IsLoading)
-            Toast.Make("Searching in progress. Wait for complete").Show();
+            Toast.Make(AppResources.SearchInProgressMessage).Show();
         
         if(_isFilterPageOpened)
             return;
@@ -100,13 +101,13 @@ public sealed class MainViewModel : INotifyPropertyChanged, IDisposable
                 new Game(game.Name, game.ImageUrl, game.MainTime, game.PlusExtrasTime, game.PerfectTime, game.ReleaseWorld)));
 
             if (Games.Count == 0)
-                await Toast.Make("No games found").Show();
+                await Toast.Make(AppResources.NoGamesFoundMessage).Show();
 
             OnPropertyChanged(nameof(Games));
         }
         catch (Exception)
         {
-            await Toast.Make("Load failed, try again", ToastDuration.Long).Show();
+            await Toast.Make(AppResources.LoadFailedMessage, ToastDuration.Long).Show();
         }
         finally
         {

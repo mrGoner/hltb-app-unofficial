@@ -1,0 +1,348 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+            
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <data name="NotAppliedFilter" xml:space="preserve">
+        <value>Filter (not applied)</value>
+    </data>
+    <data name="AppliedFilter" xml:space="preserve">
+        <value>Filter (applied)</value>
+    </data>
+    <data name="EnterGameName" xml:space="preserve">
+        <value>Enter game name</value>
+    </data>
+    <data name="YearOfRelease" xml:space="preserve">
+        <value>Year of release: {0}</value>
+    </data>
+    <data name="MainStory" xml:space="preserve">
+        <value>Main story</value>
+    </data>
+    <data name="MainPlusExtra" xml:space="preserve">
+        <value>Main + Extra</value>
+    </data>
+    <data name="Completionist" xml:space="preserve">
+        <value>Completionist</value>
+    </data>
+    <data name="Hours" xml:space="preserve">
+        <value>Hours</value>
+    </data>
+    <data name="Minutes" xml:space="preserve">
+        <value>Mins</value>
+    </data>
+    <data name="Seconds" xml:space="preserve">
+        <value>Seconds</value>
+    </data>
+    <data name="About" xml:space="preserve">
+        <value>About</value>
+    </data>
+  <data name="GenreType.All" xml:space="preserve">
+    <value>All</value>
+  </data>
+  <data name="GenreType.Action" xml:space="preserve">
+    <value>Action</value>
+  </data>
+  <data name="GenreType.Adventure" xml:space="preserve">
+    <value>Adventure</value>
+  </data>
+  <data name="GenreType.Arcade" xml:space="preserve">
+    <value>Arcade</value>
+  </data>
+  <data name="GenreType.BattleArena" xml:space="preserve">
+    <value>Battle Arena</value>
+  </data>
+  <data name="GenreType.BeatEmUp" xml:space="preserve">
+    <value>Beat 'em Up</value>
+  </data>
+  <data name="GenreType.BoardGame" xml:space="preserve">
+    <value>Board Game</value>
+  </data>
+  <data name="GenreType.Breakout" xml:space="preserve">
+    <value>Breakout</value>
+  </data>
+  <data name="GenreType.CardGame" xml:space="preserve">
+    <value>Card Game</value>
+  </data>
+  <data name="GenreType.CityBuilding" xml:space="preserve">
+    <value>City-Building</value>
+  </data>
+  <data name="GenreType.Compilation" xml:space="preserve">
+    <value>Compilation</value>
+  </data>
+  <data name="GenreType.Educational" xml:space="preserve">
+    <value>Educational</value>
+  </data>
+  <data name="GenreType.Fighting" xml:space="preserve">
+    <value>Fighting</value>
+  </data>
+  <data name="GenreType.Fitness" xml:space="preserve">
+    <value>Fitness</value>
+  </data>
+  <data name="GenreType.Flight" xml:space="preserve">
+    <value>Flight</value>
+  </data>
+  <data name="GenreType.FullMotionVideo" xml:space="preserve">
+    <value>Full Motion Video (FMV)</value>
+  </data>
+  <data name="GenreType.HackAndSlash" xml:space="preserve">
+    <value>Hack and Slash</value>
+  </data>
+  <data name="GenreType.HiddenObject" xml:space="preserve">
+    <value>Hidden Object</value>
+  </data>
+  <data name="GenreType.Horror" xml:space="preserve">
+    <value>Horror</value>
+  </data>
+  <data name="GenreType.InteractiveArt" xml:space="preserve">
+    <value>Interactive Art</value>
+  </data>
+  <data name="GenreType.Management" xml:space="preserve">
+    <value>Management</value>
+  </data>
+  <data name="GenreType.MusicRhythm" xml:space="preserve">
+    <value>Music/Rhythm</value>
+  </data>
+  <data name="GenreType.OpenWorld" xml:space="preserve">
+    <value>Open World</value>
+  </data>
+  <data name="GenreType.Party" xml:space="preserve">
+    <value>Party</value>
+  </data>
+  <data name="GenreType.Pinball" xml:space="preserve">
+    <value>Pinball</value>
+  </data>
+  <data name="GenreType.Platform" xml:space="preserve">
+    <value>Platform</value>
+  </data>
+  <data name="GenreType.Puzzle" xml:space="preserve">
+    <value>Puzzle</value>
+  </data>
+  <data name="GenreType.RacingDriving" xml:space="preserve">
+    <value>Racing/Driving</value>
+  </data>
+  <data name="GenreType.Roguelike" xml:space="preserve">
+    <value>Roguelike</value>
+  </data>
+  <data name="GenreType.RolePlaying" xml:space="preserve">
+    <value>Role-Playing</value>
+  </data>
+  <data name="GenreType.Sandbox" xml:space="preserve">
+    <value>Sandbox</value>
+  </data>
+  <data name="GenreType.Shooter" xml:space="preserve">
+    <value>Shooter</value>
+  </data>
+  <data name="GenreType.Simulation" xml:space="preserve">
+    <value>Simulation</value>
+  </data>
+  <data name="GenreType.Social" xml:space="preserve">
+    <value>Social</value>
+  </data>
+  <data name="GenreType.Sports" xml:space="preserve">
+    <value>Sports</value>
+  </data>
+  <data name="GenreType.Stealth" xml:space="preserve">
+    <value>Stealth</value>
+  </data>
+  <data name="GenreType.StrategyTactical" xml:space="preserve">
+    <value>Strategy/Tactical</value>
+  </data>
+  <data name="GenreType.Survival" xml:space="preserve">
+    <value>Survival</value>
+  </data>
+  <data name="GenreType.TowerDefense" xml:space="preserve">
+    <value>Tower Defense</value>
+  </data>
+  <data name="GenreType.Trivia" xml:space="preserve">
+    <value>Trivia</value>
+  </data>
+  <data name="GenreType.VehicularCombat" xml:space="preserve">
+    <value>Vehicular Combat</value>
+  </data>
+  <data name="GenreType.VisualNovel" xml:space="preserve">
+    <value>Visual Novel</value>
+  </data>
+  <data name="PerspectiveType_All" xml:space="preserve">
+  <value>All</value>
+</data>
+  <data name="PerspectiveType.FirstPerson" xml:space="preserve">
+  <value>First-Person</value>
+</data>
+  <data name="PerspectiveType.Isometric" xml:space="preserve">
+  <value>Isometric</value>
+</data>
+  <data name="PerspectiveType.Side" xml:space="preserve">
+  <value>Side</value>
+</data>
+  <data name="PerspectiveType.Text" xml:space="preserve">
+  <value>Text</value>
+</data>
+  <data name="PerspectiveType.ThirdPerson" xml:space="preserve">
+  <value>Third-Person</value>
+</data>
+  <data name="PerspectiveType.TopDown" xml:space="preserve">
+  <value>Top-Down</value>
+</data>
+  <data name="PerspectiveType.VirtualReality" xml:space="preserve">
+  <value>Virtual Reality</value>
+</data>
+  <data name="FlowType.All" xml:space="preserve">
+  <value>All</value>
+</data>
+  <data name="FlowType.Incremental" xml:space="preserve">
+  <value>Incremental</value>
+</data>
+  <data name="FlowType.MassivelyMultiplayer" xml:space="preserve">
+  <value>Massively Multiplayer</value>
+</data>
+  <data name="FlowType.Multidirectional" xml:space="preserve">
+  <value>Multidirectional</value>
+</data>
+  <data name="FlowType.OnRails" xml:space="preserve">
+  <value>On-Rails</value>
+</data>
+  <data name="FlowType.PointAndClick" xml:space="preserve">
+  <value>Point-and-Click</value>
+</data>
+  <data name="FlowType.RealTime" xml:space="preserve">
+  <value>Real-Time</value>
+</data>
+  <data name="FlowType.Scrolling" xml:space="preserve">
+  <value>Scrolling</value>
+</data>
+  <data name="FlowType.TurnBased" xml:space="preserve">
+  <value>Turn-Based</value>
+</data>
+  <data name="AverageTime" xml:space="preserve">
+    <value>Average time</value>
+  </data>
+  <data name="SortCategoryType.Popular" xml:space="preserve">
+  <value>Most Popular</value>
+</data>
+  <data name="SortCategoryType.Name" xml:space="preserve">
+  <value>Name</value>
+</data>
+  <data name="SortCategoryType.TopRated" xml:space="preserve">
+  <value>Top Rated</value>
+</data>
+  <data name="SortCategoryType.ReleaseDate" xml:space="preserve">
+  <value>Release Date</value>
+</data>
+  <data name="PlatformType.All" xml:space="preserve">
+  <value>All</value>
+</data>
+  <data name="PlatformType.Emulated" xml:space="preserve">
+  <value>Emulated</value>
+</data>
+  <data name="PlatformType.Nintendo3DS" xml:space="preserve">
+  <value>Nintendo 3DS</value>
+</data>
+  <data name="PlatformType.NintendoSwitch" xml:space="preserve">
+  <value>Nintendo Switch</value>
+</data>
+  <data name="PlatformType.PC" xml:space="preserve">
+  <value>PC</value>
+</data>
+  <data name="PlatformType.PlayStation3" xml:space="preserve">
+  <value>PlayStation 3</value>
+</data>
+  <data name="PlatformType.PlayStation4" xml:space="preserve">
+  <value>PlayStation 4</value>
+</data>
+  <data name="PlatformType.PlayStation5" xml:space="preserve">
+  <value>PlayStation 5</value>
+</data>
+  <data name="PlatformType.PlayStationVita" xml:space="preserve">
+  <value>PlayStation Vita</value>
+</data>
+  <data name="PlatformType.WiiU" xml:space="preserve">
+  <value>Wii U</value>
+</data>
+  <data name="PlatformType.Xbox360" xml:space="preserve">
+  <value>Xbox 360</value>
+</data>
+  <data name="PlatformType.XboxOne" xml:space="preserve">
+  <value>Xbox One</value>
+</data>
+  <data name="PlatformType.XboxSeriesXS" xml:space="preserve">
+  <value>Xbox Series X/S</value>
+</data>
+  <data name="Platform" xml:space="preserve">
+    <value>Platform</value>
+  </data>
+  <data name="Perspective" xml:space="preserve">
+    <value>Perspective</value>
+  </data>
+  <data name="Flow" xml:space="preserve">
+    <value>Flow</value>
+  </data>
+  <data name="Genre" xml:space="preserve">
+    <value>Genre</value>
+  </data>
+  <data name="ReleaseYear" xml:space="preserve">
+    <value>Release year</value>
+  </data>
+  <data name="LengthRangeCategory" xml:space="preserve">
+    <value>Length Range Category</value>
+  </data>
+  <data name="HourRange" xml:space="preserve">
+    <value>Hour Range</value>
+  </data>
+  <data name="SortBy" xml:space="preserve">
+    <value>Sort By</value>
+  </data>
+  <data name="Reset" xml:space="preserve">
+    <value>Reset</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="Min" xml:space="preserve">
+    <value>Min</value>
+  </data>
+  <data name="Max" xml:space="preserve">
+    <value>Max</value>
+  </data>
+  <data name="LoadFailedMessage" xml:space="preserve">
+    <value>Load failed, try again</value>
+  </data>
+  <data name="NoGamesFoundMessage" xml:space="preserve">
+    <value>No games found</value>
+  </data>
+  <data name="SearchInProgressMessage" xml:space="preserve">
+    <value>Searching in progress. Wait for complete</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Yes</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="FilterChangedMessage" xml:space="preserve">
+    <value>Filter was changed, do you want to search again you current query?</value>
+  </data>
+  <data name="AppDescription" xml:space="preserve">
+    <value>This is unofficial open-source app for howlongtobeat.com writing for fun</value>
+  </data>
+  <data name="ContributeWelcomeMessage" xml:space="preserve">
+    <value>Feel free to contribute and describe any bugs you encounter</value>
+  </data>
+  <data name="ViewGithubRepository" xml:space="preserve">
+    <value>View github repo</value>
+  </data>
+</root>

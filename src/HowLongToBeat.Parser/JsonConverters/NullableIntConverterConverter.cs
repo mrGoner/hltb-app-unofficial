@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace HowLongToBeat.Parser.JsonConverters;
 
-internal sealed class IntToStringConverter : JsonConverter<int?>
+internal sealed class NullableIntConverterConverter : JsonConverter<int?>
 {
     public override int? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {
@@ -17,6 +17,6 @@ internal sealed class IntToStringConverter : JsonConverter<int?>
         if (value is null)
             writer.WriteNullValue();
         else
-            writer.WriteStringValue(value.ToString());
+            writer.WriteNumberValue(value.Value);
     }
 }
