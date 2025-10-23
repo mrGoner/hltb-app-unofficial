@@ -8,7 +8,7 @@ namespace HowLongToBeat.App.ViewModels;
 
 public sealed class FilterViewModel : INotifyPropertyChanged
 {
-    private readonly Action<GamesFilter?> _closeAndSetResultAction;
+    private readonly Func<GamesFilter?, CancellationToken, Task> _closeAndSetResultAction;
     private EnumValueHolder<GamesFilter.PerspectiveType> _selectedPerspective;
     private EnumValueHolder<GamesFilter.FlowType> _selectedFlow;
     private EnumValueHolder<GamesFilter.GenreType> _selectedGenre;
@@ -87,12 +87,14 @@ public sealed class FilterViewModel : INotifyPropertyChanged
     }
 
     public ICommand ResetCommand => new Command(ResetFilter);
-    public ICommand SaveCommand => new Command(() => _closeAndSetResultAction(BuildFilter()));
+
+    public ICommand SaveCommand =>
+        new Command(async () => await _closeAndSetResultAction(BuildFilter(), CancellationToken.None));
     
 
     public event PropertyChangedEventHandler? PropertyChanged;
 
-    public FilterViewModel(GamesFilter filter, Action<GamesFilter?> closeAndSetResultAction)
+    public FilterViewModel(GamesFilter filter, Func<GamesFilter?, CancellationToken, Task> closeAndSetResultAction)
     {
         _closeAndSetResultAction = closeAndSetResultAction;
         ApplyFilter(filter);

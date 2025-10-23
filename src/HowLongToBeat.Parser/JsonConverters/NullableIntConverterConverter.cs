@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace HowLongToBeat.Parser.JsonConverters;
 
-internal sealed class NullableIntConverterConverter : JsonConverter<int?>
+internal sealed class NullableIntConverter : JsonConverter<int?>
 {
     public override int? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {

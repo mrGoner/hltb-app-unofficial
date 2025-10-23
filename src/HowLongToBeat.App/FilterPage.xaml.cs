@@ -4,12 +4,11 @@ using HowLongToBeat.Parser.Models.Requests;
 
 namespace HowLongToBeat.App;
 
-public partial class FilterPage : Popup
+public partial class FilterPage : Popup<GamesFilter>
 {
     public FilterPage(GamesFilter filter)
     {
         InitializeComponent();
-        BindingContext = new FilterViewModel(filter, Close);
-        ResultWhenUserTapsOutsideOfPopup = null;
+        BindingContext = new FilterViewModel(filter, CloseAsync);
     }
 }
