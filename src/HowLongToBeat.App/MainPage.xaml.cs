@@ -1,4 +1,4 @@
-﻿using CommunityToolkit.Maui.Views;
+﻿using CommunityToolkit.Maui.Extensions;
 using FFImageLoading;
 using HowLongToBeat.App.ViewModels;
 using HowLongToBeat.Parser.Models.Requests;
@@ -25,9 +25,9 @@ public partial class MainPage : ContentPage
 
     private async Task<GamesFilter?> ShowFilterPageFunc(GamesFilter filter)
     {
-        var result = await this.ShowPopupAsync(new FilterPage(filter));
+        var popupResult = await this.ShowPopupAsync<GamesFilter>(new FilterPage(filter));
 
-        return result as GamesFilter;
+        return popupResult.Result;
     }
 
     private void ShowAboutPage(object? sender, EventArgs e)

@@ -8,6 +8,7 @@
              xmlns:ffimageloading="clr-namespace:FFImageLoading.Maui;assembly=FFImageLoading.Maui"
              xmlns:valueFormatters="clr-namespace:HowLongToBeat.App.ValueFormatters"
              xmlns:resources="clr-namespace:HowLongToBeat.App.Resources"
+             xmlns:behaviors="clr-namespace:HowLongToBeat.App.Behaviors"
              x:DataType="{x:Type viewModels:MainViewModel}">
 
     <ContentPage.Resources>
@@ -45,9 +46,15 @@
 
         <VerticalStackLayout Grid.Row="1"
                              Padding="0">
-            <Entry IsTextPredictionEnabled="True" Placeholder="{x:Static resources:AppResources.EnterGameName}"
+            <Entry x:Name="GameSearchEntry" IsTextPredictionEnabled="True" Placeholder="{x:Static resources:AppResources.EnterGameName}"
                    ClearButtonVisibility="WhileEditing" Text="{Binding SearchGameText}"
-                   ReturnCommand="{Binding SearchGameCommand}" />
+                   ReturnCommand="{Binding SearchGameCommand}"
+                   IsSpellCheckEnabled="True" 
+                   ReturnType="Search">
+                <Entry.Behaviors>
+                    <behaviors:HideKeyboardBehavior/>
+                </Entry.Behaviors>
+            </Entry>
         </VerticalStackLayout>
 
         <ActivityIndicator Grid.Row="0" Grid.RowSpan="3" HorizontalOptions="Center" VerticalOptions="Center">

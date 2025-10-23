@@ -27,10 +27,10 @@ public record GamesFilter(
     
     public record RangeTime(
         [property: JsonPropertyName("min")]
-        [property: JsonConverter(typeof(NullableIntConverterConverter))]
+        [property: JsonConverter(typeof(NullableIntConverter))]
         int? Min,
         [property: JsonPropertyName("max")]
-        [property: JsonConverter(typeof(NullableIntConverterConverter))]
+        [property: JsonConverter(typeof(NullableIntConverter))]
         int? Max)
     {
         public static RangeTime Default => new(null, null);
@@ -51,10 +51,10 @@ public record GamesFilter(
 
     public record RangeYear(
         [property: JsonPropertyName("min")] 
-        [property: JsonConverter(typeof(NullableIntConverterConverter))]
+        [property: JsonConverter(typeof(NullableIntConverter))]
         int? Min, 
         [property: JsonPropertyName("max")]
-        [property: JsonConverter(typeof(NullableIntConverterConverter))]
+        [property: JsonConverter(typeof(NullableIntConverter))]
         int? Max)
     {
         public static RangeYear Default => new(null, null);
