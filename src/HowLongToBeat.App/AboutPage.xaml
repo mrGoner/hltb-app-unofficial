@@ -13,11 +13,11 @@
                BackgroundColor="{AppThemeBinding Light={StaticResource PopupLight}, Dark={StaticResource PopupDark}}">
     <Grid ColumnSpacing="10" RowSpacing="5">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="0.10*" />
+            <ColumnDefinition Width="0.1*" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
+            <RowDefinition Height="1.25*" />
             <RowDefinition Height="*" />
             <RowDefinition Height="10" />
             <RowDefinition Height="Auto" />

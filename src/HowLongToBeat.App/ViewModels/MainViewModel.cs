@@ -5,14 +5,15 @@ using System.Text.Json;
 using System.Windows.Input;
 using CommunityToolkit.Maui.Alerts;
 using CommunityToolkit.Maui.Core;
-using HowLongToBeat.App.Models;
 using HowLongToBeat.App.Resources;
 using HowLongToBeat.Parser;
 using HowLongToBeat.Parser.Models.Requests;
+using HowLongToBeat.Parser.Models.Responses;
+using Game = HowLongToBeat.App.Models.Game;
 
 namespace HowLongToBeat.App.ViewModels;
 
-public sealed class MainViewModel : INotifyPropertyChanged, IDisposable
+public sealed class MainViewModel : INotifyPropertyChanged
 {
     private readonly Func<GamesFilter, Task<GamesFilter?>> _showFilterPageFunc;
     private readonly Func<DisplayAlertParams, Task<bool>> _displayAlertWithCaptionFunc;
@@ -20,7 +21,7 @@ public sealed class MainViewModel : INotifyPropertyChanged, IDisposable
     private static readonly DisplayAlertParams FilterChangedAlertParams = new("",
         AppResources.FilterChangedMessage, AppResources.Yes, AppResources.No);
    
-    private const string SearchContextName = "SearchContextWrapper";
+    private const string SearchContextName = "SearchContextWrapperV2";
     private readonly HltbParser _hltbParser = new();
     private string _searchGameText = string.Empty;
     private GamesFilter _gameFilter = GamesFilter.Default;
@@ -81,6 +82,8 @@ public sealed class MainViewModel : INotifyPropertyChanged, IDisposable
 
     private async Task SearchGames()
     {
+        const int RetriesCount = 3;
+
         using var cancellationTokenSource = new CancellationTokenSource(TimeSpan.FromSeconds(20));
 
         try
@@ -93,10 +96,8 @@ public sealed class MainViewModel : INotifyPropertyChanged, IDisposable
             var searchTerms = _searchGameText.Split(" ", StringSplitOptions.RemoveEmptyEntries);
             var searchRequest = new SearchRequest(SearchType.Games, searchTerms, 1, 20, searchOptions, true);
 
-            var searchContext = await GetSearchContext(cancellationTokenSource.Token);
-
-            var response = await _hltbParser.Search(searchRequest, searchContext, cancellationTokenSource.Token);
-
+            var response = await SearchWithRetry(searchRequest, RetriesCount, cancellationTokenSource.Token);
+            
             Games = new ObservableCollection<Game>(response.Games.Select(game =>
                 new Game(game.Name, game.ImageUrl, game.MainTime, game.PlusExtrasTime, game.PerfectTime, game.ReleaseWorld)));
 
@@ -115,7 +116,34 @@ public sealed class MainViewModel : INotifyPropertyChanged, IDisposable
         }
     }
 
-    private async ValueTask<SearchContext> GetSearchContext(CancellationToken cancellationToken)
+    private async Task<SearchResponse> SearchWithRetry(SearchRequest searchRequest, int retryCount,
+        CancellationToken cancellationToken)
+    {
+        var retriesLeft = retryCount;
+        Exception? lastException;
+
+        do
+        {
+            try
+            {
+                var searchContext = await GetSearchContext(retriesLeft != retryCount, cancellationToken);
+
+                var response = await _hltbParser.Search(searchRequest, searchContext, cancellationToken);
+
+                return response;
+            }
+            catch (Exception ex)
+            {
+                lastException = ex;
+                retriesLeft--;
+            }
+
+        } while (retriesLeft > 0);
+
+        throw lastException;
+    }
+
+    private async ValueTask<SearchContext> GetSearchContext(bool forceUpdate, CancellationToken cancellationToken)
     {
         try
         {
@@ -123,9 +151,11 @@ public sealed class MainViewModel : INotifyPropertyChanged, IDisposable
 
             SearchContextWrapper searchContextWrapper;
 
-            if (storedSearchContextWrapperRaw == null)
+            if (storedSearchContextWrapperRaw == null || forceUpdate)
             {
-                var searchContext = await _hltbParser.TryGetSearchContext(cancellationToken) ??
+                Preferences.Remove(SearchContextName);
+
+                var searchContext = await _hltbParser.GetSearchContext(cancellationToken) ??
                                     throw new Exception("Failed to get search context");
 
                 searchContextWrapper = new SearchContextWrapper(searchContext, DateTimeOffset.UtcNow);
@@ -139,7 +169,7 @@ public sealed class MainViewModel : INotifyPropertyChanged, IDisposable
 
                 if (DateTimeOffset.UtcNow - searchContextWrapper.StoreTime > TimeSpan.FromDays(1))
                 {
-                    var searchContext = await _hltbParser.TryGetSearchContext(cancellationToken) ??
+                    var searchContext = await _hltbParser.GetSearchContext(cancellationToken) ??
                                         throw new Exception("Failed to get search context");
 
                     searchContextWrapper = new SearchContextWrapper(searchContext, DateTimeOffset.UtcNow);
@@ -197,9 +227,5 @@ public sealed class MainViewModel : INotifyPropertyChanged, IDisposable
     }
 
     private record SearchContextWrapper(SearchContext SearchContext, DateTimeOffset StoreTime);
-
-    public void Dispose()
-    {
-        _hltbParser.Dispose();
-    }
+    
 }
