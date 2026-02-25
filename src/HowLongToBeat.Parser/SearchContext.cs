@@ -1,3 +1,3 @@
 ﻿namespace HowLongToBeat.Parser;
 
-public record SearchContext(string Token);
+public record SearchContext(KeyValuePair<string, string> AdditionalData, string Token);

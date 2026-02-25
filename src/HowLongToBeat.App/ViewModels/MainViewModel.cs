@@ -21,7 +21,7 @@ public sealed class MainViewModel : INotifyPropertyChanged
     private static readonly DisplayAlertParams FilterChangedAlertParams = new("",
         AppResources.FilterChangedMessage, AppResources.Yes, AppResources.No);
    
-    private const string SearchContextName = "SearchContextWrapperV2";
+    private const string SearchContextName = "SearchContextWrapperV3";
     private readonly HltbParser _hltbParser = new();
     private string _searchGameText = string.Empty;
     private GamesFilter _gameFilter = GamesFilter.Default;

@@ -306,7 +306,7 @@
     <value>Фильтр изменился. Выполнить текущий запрос заново?</value>
   </data>
   <data name="AppDescription" xml:space="preserve">
-    <value>Это неофициальное open-source приложение для сайта howlongtobeat.com написанное по фану</value>
+    <value>Это неофициальное open-source приложение для howlongtobeat.com написанное по фану</value>
   </data>
   <data name="ContributeWelcomeMessage" xml:space="preserve">
     <value>Пишите предложения по улучшению и сообщайте о найденных багах</value>

@@ -1,4 +1,5 @@
 ﻿using System.Text.Json;
+using System.Text.Json.Serialization;
 using HowLongToBeat.Parser.JsonConverters;
 using HowLongToBeat.Parser.Models.Requests;
 using HowLongToBeat.Parser.Models.Responses;
@@ -16,7 +17,17 @@ public class HltbParser
 
     public async Task<SearchResponse> Search(SearchRequest request, SearchContext context, CancellationToken cancellationToken)
     {
-        var response = await _client.SearchGames(context.Token, request, cancellationToken);
+        var internalRequest = new SearchRequestWithAdditionalAuthData(request.SearchType, request.SearchTerms,
+            request.SearchPage, request.Size, request.SearchOptions, request.UserCache)
+        {
+            Extra =
+            {
+                [context.AdditionalData.Key] = context.AdditionalData.Value
+            }
+        };
+
+        var response = await _client.SearchGames(context.Token, context.AdditionalData.Key,
+            context.AdditionalData.Value, internalRequest, cancellationToken);
 
         return response;
     }
@@ -29,6 +40,22 @@ public class HltbParser
         if (!tokenResponse.IsSuccessful || tokenResponse.Content is null)
             throw new Exception("Failed to get user token, maybe server change token mechanism", tokenResponse.Error);
 
-        return new SearchContext(tokenResponse.Content.Token);
+        var tokenResult = tokenResponse.Content;
+        var additionalData = new KeyValuePair<string, string>(tokenResult.AdditionalKey, tokenResult.AdditionalValue);
+
+        return new SearchContext(additionalData, tokenResult.Token);
+    }
+
+    private record SearchRequestWithAdditionalAuthData(
+        SearchType SearchType,
+        string[] SearchTerms,
+        int SearchPage,
+        int Size,
+        SearchOptions SearchOptions,
+        bool UserCache) : SearchRequest(SearchType, SearchTerms, SearchPage, Size, SearchOptions, UserCache)
+    {
+        
+        [property:JsonExtensionData]
+        public Dictionary<string, object> Extra {get; set;} = new();
     }
 }
