@@ -8,16 +8,14 @@
                xmlns:resources="clr-namespace:HowLongToBeat.App.Resources"
                x:Class="HowLongToBeat.App.AboutPage"
                x:DataType="{x:Type viewModels:AboutViewModel}"
-               Padding="3, 20, 3, 10"
-               Margin="20,0,20,0"
                BackgroundColor="{AppThemeBinding Light={StaticResource PopupLight}, Dark={StaticResource PopupDark}}">
-    <Grid ColumnSpacing="10" RowSpacing="5">
+    <Grid ColumnSpacing="10" RowSpacing="10" Padding="3">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0.1*" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="1.25*" />
+            <RowDefinition Height="1.5*" />
             <RowDefinition Height="*" />
             <RowDefinition Height="10" />
             <RowDefinition Height="Auto" />
@@ -27,15 +25,15 @@
                           VerticalOptions="Center" />
         <Label Grid.Column="1" Grid.Row="0" FontSize="Body"
                Text="{x:Static resources:AppResources.AppDescription}"
-               LineBreakMode="WordWrap" VerticalOptions="Center" />
+               LineBreakMode="WordWrap" VerticalOptions="Center"/>
         <maui:CachedImage Grid.Column="0" Grid.Row="1" Source="github.png" VerticalOptions="Center" />
         <Label Grid.Column="1" Grid.Row="1" FontSize="Body"
                Text="{x:Static resources:AppResources.ContributeWelcomeMessage}"
                LineBreakMode="WordWrap"
-               VerticalOptions="Center" />
+               VerticalOptions="Center"/>
         <Label Grid.Column="1" Grid.Row="3" FontSize="Micro"
                Text="{Binding AppVersion, StringFormat='ver: {0}'}"
-               VerticalOptions="End" HorizontalOptions="End" />
+               VerticalOptions="End" HorizontalOptions="End" Margin="0 0 8 0" />
         <Button Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="3" HorizontalOptions="Center"
                 Text="{x:Static resources:AppResources.ViewGithubRepository}"
                 Command="{Binding OpenGitHubCommand}" TextColor="White" />

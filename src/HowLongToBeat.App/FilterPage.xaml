@@ -10,11 +10,9 @@
                x:Class="HowLongToBeat.App.FilterPage"
                x:TypeArguments="requests:GamesFilter"
                x:DataType="{x:Type viewModels:FilterViewModel}" CanBeDismissedByTappingOutsideOfPopup="True"
-               BackgroundColor="{AppThemeBinding Light={StaticResource PopupLight}, Dark={StaticResource PopupDark}}"
-               Padding="10"
-               MinimumWidthRequest="270">
+               BackgroundColor="{AppThemeBinding Light={StaticResource PopupLight}, Dark={StaticResource PopupDark}}">
     <ScrollView VerticalScrollBarVisibility="Default" HorizontalScrollBarVisibility="Never" VerticalOptions="Start">
-        <VerticalStackLayout Spacing="5">
+        <VerticalStackLayout Spacing="5" Margin="20">
             <Label Text="{x:Static resources:AppResources.Platform}" />
             <Picker ItemsSource="{Binding Platforms}" ItemDisplayBinding="{Binding LocalizedName}"
                     SelectedItem="{Binding SelectedPlatform}" />
