@@ -6,6 +6,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HowLongToBeat.Console", "Ho
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HowLongToBeat.App", "HowLongToBeat.App\HowLongToBeat.App.csproj", "{DBEF5C63-E63C-4C4B-88EC-151CF115B747}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "media", "media", "{EF3ADA90-F217-4B81-BEB2-718562562877}"
+	ProjectSection(SolutionItems) = preProject
+		..\media\filter.png = ..\media\filter.png
+		..\media\main.png = ..\media\main.png
+		..\media\search.png = ..\media\search.png
+		..\README.md = ..\README.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
