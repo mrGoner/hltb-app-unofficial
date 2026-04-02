@@ -23,7 +23,7 @@ Search games and view completion times directly from your Android device.
 
 ## Screenshots
 
-| Search                  | Details                     | Results                     |
+| Main                    | Details                     | Results                     |
 |-------------------------|-----------------------------|-----------------------------|
 | ![main](media/main.png) | ![filter](media/filter.png) | ![filter](media/search.png)
 
