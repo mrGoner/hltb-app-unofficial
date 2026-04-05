@@ -43,7 +43,7 @@ public static class MauiProgram
             .AddStreamingFileLogger(options =>
             {
                 options.RetainDays = 2;
-                options.FolderPath = Path.Combine(FileSystem.CacheDirectory, "MetroLogs");
+                options.FolderPath = Path.Combine(FileSystem.CacheDirectory, "HltbLogs");
             });
 
         builder.Services.AddScoped<HltbParser>(provider =>
