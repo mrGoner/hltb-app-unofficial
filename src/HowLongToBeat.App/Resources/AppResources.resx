@@ -345,4 +345,19 @@
   <data name="ViewGithubRepository" xml:space="preserve">
     <value>View github repo</value>
   </data>
+  <data name="Logs" xml:space="preserve">
+    <value>App logs</value>
+  </data>
+  <data name="LogPageClose" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="LogPageShareLogs" xml:space="preserve">
+    <value>Share Logs</value>
+  </data>
+  <data name="LogPageRefresh" xml:space="preserve">
+    <value>Refresh</value>
+  </data>
+  <data name="LogPageAppLogs" xml:space="preserve">
+    <value>App Logs</value>
+  </data>
 </root>

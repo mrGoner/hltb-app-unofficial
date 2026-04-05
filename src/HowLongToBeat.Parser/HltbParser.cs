@@ -3,11 +3,12 @@ using System.Text.Json.Serialization;
 using HowLongToBeat.Parser.JsonConverters;
 using HowLongToBeat.Parser.Models.Requests;
 using HowLongToBeat.Parser.Models.Responses;
+using Microsoft.Extensions.Logging;
 using Refit;
 
 namespace HowLongToBeat.Parser;
 
-public class HltbParser
+public class HltbParser(ILogger logger)
 {
     private readonly IHowLongToBeatClient _client = RestService.For<IHowLongToBeatClient>("https://howlongtobeat.com",
         new RefitSettings(new SystemTextJsonContentSerializer(new JsonSerializerOptions
@@ -26,10 +27,23 @@ public class HltbParser
             }
         };
 
-        var response = await _client.SearchGames(context.Token, context.AdditionalData.Key,
-            context.AdditionalData.Value, internalRequest, cancellationToken);
+        try
+        {
+            var response = await _client.SearchGames(context.Token, context.AdditionalData.Key,
+                context.AdditionalData.Value, internalRequest, cancellationToken);
+            
+            return response;
+        }
+        catch (ApiException apiException)
+        {
+            var requestContent = apiException.RequestMessage.Content == null
+                ? string.Empty
+                : await apiException.RequestMessage.Content.ReadAsStringAsync(cancellationToken);
 
-        return response;
+            logger.LogError(apiException, "Failed to perform search query: {Query}", requestContent);
+
+            throw;
+        }
     }
 
     public async Task<SearchContext> GetSearchContext(CancellationToken cancellationToken)
@@ -37,11 +51,17 @@ public class HltbParser
         var currentTimestampMs = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
         var tokenResponse = await _client.GetAuthToken(currentTimestampMs, cancellationToken);
 
-        if (!tokenResponse.IsSuccessful || tokenResponse.Content is null)
+        if (!tokenResponse.IsSuccessful)
+        {
+            logger.LogError(tokenResponse.Error, "Failed to get auth token. StatusCode: {StatusCode}", tokenResponse.StatusCode);
+            
             throw new Exception("Failed to get user token, maybe server change token mechanism", tokenResponse.Error);
+        }
 
         var tokenResult = tokenResponse.Content;
-        var additionalData = new KeyValuePair<string, string>(tokenResult.AdditionalKey, tokenResult.AdditionalValue);
+        var additionalData = new SearchContext.Data(tokenResult.AdditionalKey, tokenResult.AdditionalValue);
+        
+        logger.LogDebug("Got success token data: {Data}", tokenResult);
 
         return new SearchContext(additionalData, tokenResult.Token);
     }

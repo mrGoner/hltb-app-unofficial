@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:resources="clr-namespace:HowLongToBeat.App.Resources"
+             x:Class="HowLongToBeat.App.MetroLogLocalizedPage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Color x:Key="BorderColor">WhiteSmoke</Color>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <Grid RowDefinitions="Auto,*"
+          RowSpacing="15"
+          Padding="15">
+        <VerticalStackLayout
+            Spacing="5"
+            VerticalOptions="Start">
+
+            <Grid RowDefinitions="40,50,40"
+                  ColumnDefinitions="110,*,110">
+                <Button x:Name="Close"
+                        Grid.Column="0"
+                        VerticalOptions="End"
+                        Text="{x:Static resources:AppResources.LogPageClose}"
+                        Clicked="OnCloseClicked"/>
+                <Label x:Name="Title"
+                       Grid.Column="1"
+                       Text="{x:Static resources:AppResources.LogPageAppLogs}"
+                       FontSize="16"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center" />
+                <Button x:Name="ShareLogs"
+                        Grid.Column="2"
+                        Text="{x:Static resources:AppResources.LogPageShareLogs}"
+                        HorizontalOptions="End"
+                        VerticalOptions="End"
+                        Clicked="OnShareLogsClicked"/>
+
+                <HorizontalStackLayout Spacing="5"
+                                       Grid.Row="1"
+                                       Grid.Column="0"
+                                       VerticalOptions="End"
+                                       Grid.ColumnSpan="3">
+                    <Label x:Name="Name"
+                           LineBreakMode="MiddleTruncation"
+                           FontSize="18"
+                           VerticalOptions="End" />
+                    <Label x:Name="Version"
+                           FontAttributes="Bold"
+                           Margin="0,0,0,1"
+                           VerticalOptions="End" />
+                </HorizontalStackLayout>
+
+                <Label x:Name="Package"
+                       Grid.Row="2"
+                       Grid.ColumnSpan="3"
+                       VerticalOptions="Center"
+                       FontSize="14" />
+            </Grid>
+
+        </VerticalStackLayout>
+        <Grid Grid.Row="1">
+            <Border x:Name="LogsBorder"
+                    Stroke="WhiteSmoke"
+                    StrokeThickness="2">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="20" />
+                </Border.StrokeShape>
+                <ScrollView>
+                    <Label x:Name="Logs"
+                           FontSize="13"
+                           Margin="5,0"
+                           LineBreakMode="WordWrap"/>
+                </ScrollView>
+            </Border>
+
+            <Button x:Name="Refresh"
+                    Text="{x:Static resources:AppResources.LogPageRefresh}"
+                    VerticalOptions="End"
+                    Margin="0,0,0,15"
+                    HorizontalOptions="Center"
+                    Clicked="OnRefreshClicked"/>
+        </Grid>
+    </Grid>
+</ContentPage>

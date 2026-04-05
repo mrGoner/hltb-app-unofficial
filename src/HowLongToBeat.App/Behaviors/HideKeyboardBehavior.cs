@@ -21,7 +21,6 @@ public class HideKeyboardBehavior : Behavior<Entry>
         if (sender is not Entry entry) 
             return;
         
-        entry.Unfocus(); 
         entry.HideKeyboardAsync(CancellationToken.None);
     }
 }

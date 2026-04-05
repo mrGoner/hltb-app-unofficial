@@ -1,7 +1,8 @@
 ﻿using HowLongToBeat.Parser;
 using HowLongToBeat.Parser.Models.Requests;
+using Microsoft.Extensions.Logging.Abstractions;
 
-var parser = new HltbParser();
+var parser = new HltbParser(NullLogger.Instance);
 
 var request = new SearchRequest(SearchType.Games, ["Game"], 1, 20, SearchOptions.Default, true);
 

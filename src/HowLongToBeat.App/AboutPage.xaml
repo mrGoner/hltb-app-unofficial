@@ -32,8 +32,8 @@
                LineBreakMode="WordWrap"
                VerticalOptions="Center"/>
         <Label Grid.Column="1" Grid.Row="3" FontSize="Micro"
-               Text="{Binding AppVersion, StringFormat='ver: {0}'}"
-               VerticalOptions="End" HorizontalOptions="End" Margin="0,0,8,0" />
+               Text="{Binding AppVersion, StringFormat='v: {0}'}"
+               VerticalOptions="End" HorizontalOptions="End" Margin="0,0,3,0" />
         <Button Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="3" HorizontalOptions="Center"
                 Text="{x:Static resources:AppResources.ViewGithubRepository}"
                 Command="{Binding OpenGitHubCommand}" TextColor="White" />

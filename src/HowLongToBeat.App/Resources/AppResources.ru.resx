@@ -314,4 +314,19 @@
   <data name="ViewGithubRepository" xml:space="preserve">
     <value>Github репозиторий</value>
   </data>
+  <data name="Logs" xml:space="preserve">
+    <value>Логи приложения</value>
+  </data>
+  <data name="LogPageClose" xml:space="preserve">
+    <value>Закрыть</value>
+  </data>
+  <data name="LogPageShareLogs" xml:space="preserve">
+    <value>Отправить логи</value>
+  </data>
+  <data name="LogPageRefresh" xml:space="preserve">
+    <value>Обновить</value>
+  </data>
+  <data name="LogPageAppLogs" xml:space="preserve">
+    <value>`</value>
+  </data>
 </root>

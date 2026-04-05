@@ -29,9 +29,10 @@
             </ToolbarItem.Style>
         </ToolbarItem>
         <ToolbarItem Text="{x:Static resources:AppResources.About}" Order="Secondary" Clicked="ShowAboutPage" />
+        <ToolbarItem Text="{x:Static resources:AppResources.Logs}" Order="Secondary" Clicked="ShowLogsPage"/>
     </ContentPage.ToolbarItems>
 
-    <Grid Padding="30,0" RowSpacing="25">
+    <Grid Padding="12,0" RowSpacing="25" BackgroundColor="Transparent">
 
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -54,6 +55,16 @@
                 <Entry.Behaviors>
                     <behaviors:HideKeyboardBehavior/>
                 </Entry.Behaviors>
+                <Entry.Style>
+                    <Style TargetType="Entry">
+                        <Setter Property="IsEnabled" Value="True" />
+                        <Style.Triggers>
+                            <DataTrigger TargetType="Entry" Binding="{Binding IsLoading}" Value="True">
+                                <Setter Property="IsEnabled" Value="False" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Entry.Style>
             </Entry>
         </VerticalStackLayout>
 
@@ -157,5 +168,19 @@
             </CollectionView.Style>
         </CollectionView>
     </Grid>
-
+    <ContentPage.Style>
+        <Style TargetType="ContentPage" ApplyToDerivedTypes="True">
+            <Setter Property="VisualStateManager.VisualStateGroups">
+                <VisualStateGroupList>
+                    <VisualStateGroup Name="CommonStates">
+                        <VisualState Name="Disabled">
+                            <VisualState.Setters>
+                                <Setter Property="Opacity" Value="1" />
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateGroupList>
+            </Setter>
+        </Style>
+    </ContentPage.Style>
 </ContentPage>

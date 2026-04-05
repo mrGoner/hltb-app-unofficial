@@ -9,20 +9,22 @@ using HowLongToBeat.App.Resources;
 using HowLongToBeat.Parser;
 using HowLongToBeat.Parser.Models.Requests;
 using HowLongToBeat.Parser.Models.Responses;
+using Microsoft.Extensions.Logging;
 using Game = HowLongToBeat.App.Models.Game;
 
 namespace HowLongToBeat.App.ViewModels;
 
-public sealed class MainViewModel : INotifyPropertyChanged
+public sealed class MainViewModel(
+    HltbParser hltbParser,
+    Func<GamesFilter, Task<GamesFilter?>> showFilterPageFunc,
+    Func<DisplayAlertParams, Task<bool>> displayAlertWithCaptionFunc,
+    ILogger logger)
+    : INotifyPropertyChanged
 {
-    private readonly Func<GamesFilter, Task<GamesFilter?>> _showFilterPageFunc;
-    private readonly Func<DisplayAlertParams, Task<bool>> _displayAlertWithCaptionFunc;
-
     private static readonly DisplayAlertParams FilterChangedAlertParams = new("",
         AppResources.FilterChangedMessage, AppResources.Yes, AppResources.No);
    
     private const string SearchContextName = "SearchContextWrapperV3";
-    private readonly HltbParser _hltbParser = new();
     private string _searchGameText = string.Empty;
     private GamesFilter _gameFilter = GamesFilter.Default;
     private bool _isLoading;
@@ -73,13 +75,6 @@ public sealed class MainViewModel : INotifyPropertyChanged
 
     public ObservableCollection<Game> Games { get; private set; } = [];
 
-    public MainViewModel(Func<GamesFilter, Task<GamesFilter?>> showFilterPageFunc,
-        Func<DisplayAlertParams, Task<bool>> displayAlertWithCaptionFunc)
-    {
-        _showFilterPageFunc = showFilterPageFunc;
-        _displayAlertWithCaptionFunc = displayAlertWithCaptionFunc;
-    }
-
     private async Task SearchGames()
     {
         const int RetriesCount = 3;
@@ -105,9 +100,13 @@ public sealed class MainViewModel : INotifyPropertyChanged
                 await Toast.Make(AppResources.NoGamesFoundMessage).Show();
 
             OnPropertyChanged(nameof(Games));
+
+            logger.LogInformation("Search successful completed");
         }
-        catch (Exception)
+        catch (Exception ex)
         {
+            logger.LogError(ex, "Failed to search games");
+
             await Toast.Make(AppResources.LoadFailedMessage, ToastDuration.Long).Show();
         }
         finally
@@ -128,7 +127,7 @@ public sealed class MainViewModel : INotifyPropertyChanged
             {
                 var searchContext = await GetSearchContext(retriesLeft != retryCount, cancellationToken);
 
-                var response = await _hltbParser.Search(searchRequest, searchContext, cancellationToken);
+                var response = await hltbParser.Search(searchRequest, searchContext, cancellationToken);
 
                 return response;
             }
@@ -136,6 +135,10 @@ public sealed class MainViewModel : INotifyPropertyChanged
             {
                 lastException = ex;
                 retriesLeft--;
+
+                logger.LogWarning(ex, "Retrying search, retires left: {Retries}", retriesLeft);
+
+                await Task.Delay(300, cancellationToken);
             }
 
         } while (retriesLeft > 0);
@@ -153,14 +156,18 @@ public sealed class MainViewModel : INotifyPropertyChanged
 
             if (storedSearchContextWrapperRaw == null || forceUpdate)
             {
+                logger.LogInformation("Search token update started. IsForce {IsForce}", forceUpdate);
+                
                 Preferences.Remove(SearchContextName);
 
-                var searchContext = await _hltbParser.GetSearchContext(cancellationToken) ??
+                var searchContext = await hltbParser.GetSearchContext(cancellationToken) ??
                                     throw new Exception("Failed to get search context");
 
                 searchContextWrapper = new SearchContextWrapper(searchContext, DateTimeOffset.UtcNow);
 
                 Preferences.Set(SearchContextName, JsonSerializer.Serialize(searchContextWrapper));
+
+                logger.LogInformation("Search token stored");
             }
             else
             {
@@ -169,29 +176,39 @@ public sealed class MainViewModel : INotifyPropertyChanged
 
                 if (DateTimeOffset.UtcNow - searchContextWrapper.StoreTime > TimeSpan.FromDays(1))
                 {
-                    var searchContext = await _hltbParser.GetSearchContext(cancellationToken) ??
+                    logger.LogInformation("Search token expired. StoreDate: {StoreDate}. Start get new token",
+                        searchContextWrapper.StoreTime);
+                    
+                    var searchContext = await hltbParser.GetSearchContext(cancellationToken) ??
                                         throw new Exception("Failed to get search context");
 
                     searchContextWrapper = new SearchContextWrapper(searchContext, DateTimeOffset.UtcNow);
 
                     Preferences.Set(SearchContextName, JsonSerializer.Serialize(searchContextWrapper));
-                }
-            }
 
+                    logger.LogInformation("Search token stored");
+                }
+                
+                logger.LogInformation("Search token loaded from storage");
+            }
+            
             return searchContextWrapper.SearchContext;
         }
-        catch
+        catch(Exception ex)
         {
             if (!cancellationToken.IsCancellationRequested)
+            {
                 Preferences.Remove(SearchContextName);
-            
+                logger.LogWarning(ex, "Search token not valid, remove it");
+            }
+
             throw;
         }
     }
 
     private async Task OpenFilterPageAndGetResult()
     {
-        var newFilter = await _showFilterPageFunc(_gameFilter);
+        var newFilter = await showFilterPageFunc(_gameFilter);
         
         if(newFilter == null)
             return;
@@ -204,7 +221,7 @@ public sealed class MainViewModel : INotifyPropertyChanged
 
         if (isFilterChanged && !string.IsNullOrEmpty(SearchGameText))
         {
-            var result = await _displayAlertWithCaptionFunc(FilterChangedAlertParams);
+            var result = await displayAlertWithCaptionFunc(FilterChangedAlertParams);
 
             if (result)
                 _ = SearchGames();

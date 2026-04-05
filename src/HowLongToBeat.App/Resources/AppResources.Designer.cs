@@ -645,6 +645,51 @@ namespace HowLongToBeat.App.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to App Logs.
+        /// </summary>
+        internal static string LogPageAppLogs {
+            get {
+                return ResourceManager.GetString("LogPageAppLogs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Close.
+        /// </summary>
+        internal static string LogPageClose {
+            get {
+                return ResourceManager.GetString("LogPageClose", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Refresh.
+        /// </summary>
+        internal static string LogPageRefresh {
+            get {
+                return ResourceManager.GetString("LogPageRefresh", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Share Logs.
+        /// </summary>
+        internal static string LogPageShareLogs {
+            get {
+                return ResourceManager.GetString("LogPageShareLogs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to App logs.
+        /// </summary>
+        internal static string Logs {
+            get {
+                return ResourceManager.GetString("Logs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Main + Extra.
         /// </summary>
         internal static string MainPlusExtra {
